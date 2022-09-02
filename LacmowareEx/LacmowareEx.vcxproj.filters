@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="dllmain.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="xorstr.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="patterns.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="offsets.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerStats.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="CGun.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CGunsContainer.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CHotkey.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="CIntercom.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CBypassKeycodes.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
+    <ClInclude Include="CInfAmmo.h">
+      <Filter>Features\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="CNoBlink.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="CNoclip.h">
+      <Filter>Features\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="CNoRecoil.h">
+      <Filter>Features\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaxShootSpeed.h">
+      <Filter>Features\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="CWallhack.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="CVomit.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
+    <ClInclude Include="CInfStamina.h">
+      <Filter>Features\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="CWireframe.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpeedhack.h">
+      <Filter>Features\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="freezeManager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponsFreezeState.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CNoFilters.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="CVisuals.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CForceVoice.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
+    <ClInclude Include="CScpStats.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CServerInfo.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CTeleportNext.h">
+      <Filter>Features\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerListElement.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="processorCpuid.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imstb_truetype.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui_impl_dx9.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui_impl_win32.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui_internal.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imstb_rectpack.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imstb_textedit.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imconfig.h">
+      <Filter>Imgui/</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="menuRenderer.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="keyNames.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Tab.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="memory.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="CHotkey.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="CBypassKeycodes.cpp">
+      <Filter>Features\Fun</Filter>
+    </ClCompile>
+    <ClCompile Include="CInfAmmo.cpp">
+      <Filter>Features\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="CInfStamina.cpp">
+      <Filter>Features\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="CNoBlink.cpp">
+      <Filter>Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="CNoclip.cpp">
+      <Filter>Features\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="CNoRecoil.cpp">
+      <Filter>Features\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="CWallhack.cpp">
+      <Filter>Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="CVomit.cpp">
+      <Filter>Features\Fun</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaxShootSpeed.cpp">
+      <Filter>Features\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpeedhack.cpp">
+      <Filter>Features\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="CWireframe.cpp">
+      <Filter>Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="freezeManager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CNoFilters.cpp">
+      <Filter>Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="CForceVoice.cpp">
+      <Filter>Features\Fun</Filter>
+    </ClCompile>
+    <ClCompile Include="CTeleportNext.cpp">
+      <Filter>Features\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerListElement.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="processorCpuid.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_demo.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_draw.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_impl_dx9.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_impl_win32.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_tables.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_widgets.cpp">
+      <Filter>Imgui/</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="menuRenderer.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{534fbfe0-60fe-482e-a0e4-b4a68356ff91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{4390dd0a-8709-4d7c-b730-eea5f52f9e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sdk">
+      <UniqueIdentifier>{4a43bbc3-0603-4964-86f6-20143e77d542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{c04c0543-e327-438b-9784-b79ab187ac98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features">
+      <UniqueIdentifier>{490ce1aa-763d-429e-a6da-0e4e98ba31e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Movement">
+      <UniqueIdentifier>{a47221c5-6e24-4088-be64-6097bc9b0d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Visuals">
+      <UniqueIdentifier>{eba05e68-ebfc-4fea-894d-6bd25206bfb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Fun">
+      <UniqueIdentifier>{16cbd738-8219-4b23-a9a1-d19dd2c3196f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Combat">
+      <UniqueIdentifier>{ba221906-a610-4bfc-a51a-8931ef90c5e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui/">
+      <UniqueIdentifier>{5528a46e-deab-48f6-9156-81e298f0255f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
