@@ -15,3 +15,4 @@ git clone https://github.com/ggpabuk/LacmowareEx-public.git
 # Credits
 + [@ggpabuk](https://github.com/ggpabuk/)
 + [@TheLifeWorm](https://github.com/TheLifeWorm/)
++ [JustasMasiulis/xorstr](https://github.com/JustasMasiulis/xorstr)
