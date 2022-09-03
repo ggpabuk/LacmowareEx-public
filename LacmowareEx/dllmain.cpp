@@ -15,10 +15,10 @@ void fnInit()
 {
     srand(GetTickCount64());
 
-#ifndef _DEBUG
+#ifdef _DEBUG
     fnCreateConsole();
     SetConsoleTitle("LacmowareEx debug");
-#endif // !_DEBUG
+#endif // _DEBUG
 
     SDK::fnInit();
 
