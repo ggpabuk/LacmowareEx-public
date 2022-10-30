@@ -88,9 +88,6 @@
     <ClInclude Include="CServerInfo.h">
       <Filter>Sdk</Filter>
     </ClInclude>
-    <ClInclude Include="CTeleportNext.h">
-      <Filter>Features\Movement</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>Sdk</Filter>
     </ClInclude>
@@ -196,9 +193,6 @@
     </ClCompile>
     <ClCompile Include="CForceVoice.cpp">
       <Filter>Features\Fun</Filter>
-    </ClCompile>
-    <ClCompile Include="CTeleportNext.cpp">
-      <Filter>Features\Movement</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerListElement.cpp">
       <Filter>Sdk</Filter>

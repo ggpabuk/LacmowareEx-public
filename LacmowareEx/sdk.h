@@ -26,5 +26,4 @@ namespace SDK
     extern CPlayerListElement *g_pCOPlayerList;
 
     void fnInit();
-    Vector3 *fnGetLocalPosition();
 }

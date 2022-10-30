@@ -127,7 +127,6 @@
     <ClInclude Include="processorCpuid.h" />
     <ClInclude Include="CScpStats.h" />
     <ClInclude Include="CServerInfo.h" />
-    <ClInclude Include="CTeleportNext.h" />
     <ClInclude Include="CVisuals.h" />
     <ClInclude Include="CSpeedhack.h" />
     <ClInclude Include="CVomit.h" />
@@ -169,7 +168,6 @@
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="menuRenderer.cpp" />
     <ClCompile Include="processorCpuid.cpp" />
-    <ClCompile Include="CTeleportNext.cpp" />
     <ClCompile Include="CSpeedhack.cpp" />
     <ClCompile Include="CVomit.cpp" />
     <ClCompile Include="CWallhack.cpp" />

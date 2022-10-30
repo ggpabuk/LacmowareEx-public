@@ -21,20 +21,7 @@ void fnInit()
 #endif // _DEBUG
 
     SDK::fnInit();
-
-    const HWND hWndConsole = GetConsoleWindow();
-    SetWindowPos(
-        hWndConsole,
-        HWND_TOPMOST,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        SWP_NOMOVE | SWP_NOSIZE
-    );
-
     freezeManager::fnInit();
-    
     menuRenderer::init();
 }
 

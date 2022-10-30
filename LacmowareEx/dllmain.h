@@ -15,7 +15,6 @@
 #include "CWireframe.h"
 #include "CNoFilters.h"
 #include "CForceVoice.h"
-#include "CTeleportNext.h"
 #include "freezeManager.h"
 #include "sdk.h"
 #include "menuRenderer.h"

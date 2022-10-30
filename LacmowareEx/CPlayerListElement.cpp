@@ -3,9 +3,8 @@
 
 bool CPlayerListElement::fnIsPlayerValid()
 {
-    return m_COplayer &&
-        *m_COplayer &&
-        memory::fnIsMemoryReadable(&(*m_COplayer)->Id, sizeof((*m_COplayer)->Id));
+    return m_COplayer && *m_COplayer &&
+        memory::fnIsMemoryReadable(*m_COplayer, 1);
 }
 
 CPlayerListElement *CPlayerListElement::fnGetNext()

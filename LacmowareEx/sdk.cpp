@@ -20,7 +20,6 @@ namespace SDK
         auto gameModule = (DWORD)GetModuleHandle(NULL);
         DWORD base = memory::fnFindDMAAddy(gameModule + 0x000F5400, offsets::base);
 
-
         g_piWireframe       = reinterpret_cast<int *>(base + offsets::wireframe);
         g_piGammaUpdate     = reinterpret_cast<int *>(base + offsets::gammaUpdate);
         g_piCurrentGunId    = reinterpret_cast<int *>(base + offsets::currentGunId);
@@ -32,11 +31,5 @@ namespace SDK
         g_pCOPlayerStats    = reinterpret_cast<CPlayerStats *>(base + offsets::playerStats);
         g_pppCOGunContainer = reinterpret_cast<CGunsContainer ***>(base + offsets::gunContainer);
         g_pCOPlayerList     = reinterpret_cast<CPlayerListElement *>(base + offsets::playerList);
-    }
-
-    Vector3 *fnGetLocalPosition()
-    {
-        auto gameModule = (DWORD)GetModuleHandle(NULL);
-        return reinterpret_cast<Vector3 *>(memory::fnFindDMAAddy(gameModule + 0x000F68DC, offsets::localPosition));
     }
 }

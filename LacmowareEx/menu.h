@@ -9,7 +9,6 @@
 #include "CWallhack.h"
 #include "CInfStamina.h"
 #include "CNoFilters.h"
-#include "CTeleportNext.h"
 #include "CInfAmmo.h"
 #include "CMaxShootSpeed.h"
 #include "CNoRecoil.h"
