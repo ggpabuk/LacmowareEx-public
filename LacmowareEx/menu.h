@@ -17,6 +17,7 @@
 #include "CWireframe.h"
 #include "CSpeedhack.h"
 #include "CBypassKeycodes.h"
+#include "FiraCode.h"
 
 #include <Windows.h>
 
@@ -26,6 +27,7 @@ namespace menu
     constexpr int iHeight = 400;
 
     void fnInit(HWND hWnd);
+    void fnSetTheme();
     void fnDrawMenu();
     void fnCatchHotkeys();
 }

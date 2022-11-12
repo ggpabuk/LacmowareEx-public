@@ -4,9 +4,6 @@
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="xorstr.hpp">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="memory.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -139,6 +136,9 @@
     <ClInclude Include="Tab.h">
       <Filter>Menu</Filter>
     </ClInclude>
+    <ClInclude Include="FiraCode.h">
+      <Filter>Menu\Fonts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -264,6 +264,9 @@
     </Filter>
     <Filter Include="Imgui/">
       <UniqueIdentifier>{5528a46e-deab-48f6-9156-81e298f0255f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Fonts">
+      <UniqueIdentifier>{161015b3-b0fa-4fec-a56a-d41843b2911c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

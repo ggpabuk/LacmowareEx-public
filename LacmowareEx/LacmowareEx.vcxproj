@@ -113,6 +113,7 @@
     <ClInclude Include="CMaxShootSpeed.h" />
     <ClInclude Include="CNoBlink.h" />
     <ClInclude Include="CNoclip.h" />
+    <ClInclude Include="FiraCode.h" />
     <ClInclude Include="Imgui\imconfig.h" />
     <ClInclude Include="Imgui\imgui.h" />
     <ClInclude Include="Imgui\imgui_impl_dx9.h" />
@@ -145,7 +146,6 @@
     <ClInclude Include="offsets.h" />
     <ClInclude Include="patterns.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="xorstr.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBypassKeycodes.cpp" />
