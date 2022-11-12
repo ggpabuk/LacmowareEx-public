@@ -2,7 +2,6 @@
 #define PCH_H
 
 #include "framework.h"
-#include "xorstr.hpp"
 
 #include <powerbase.h>
 #include <Windows.h>

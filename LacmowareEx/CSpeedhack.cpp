@@ -4,7 +4,7 @@
 CSpeedhack::CSpeedhack(CHotkey COHotkey) :
     CFeature("Speedhack", COHotkey, Tab::Movement)
 {
-    m_speed = 0.7;
+    m_speed = 0.1;
 }
 
 void CSpeedhack::fnEnable()
@@ -27,7 +27,7 @@ void CSpeedhack::fnDraw(unsigned int &uElementId)
     CFeature::fnDraw(uElementId);
   
     float speed = m_speed;
-    ImGui::SliderFloat("Speed", &speed, 0.1, 0.3);
+    ImGui::SliderFloat("Speed", &speed, 0.01, 0.3);
 
     if (speed != m_speed)
     {
