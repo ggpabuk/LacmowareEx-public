@@ -5,7 +5,7 @@ CBypassKeycodes::CBypassKeycodes(CHotkey COHotkey) :
     CFeature("Bypass Keycodes", COHotkey, Tab::Fun)
 {
     ZeroMemory(m_aBuffer1, LENGTH(m_aBuffer1));
-    m_pdwKeycodeValidation = reinterpret_cast<DWORD *>(memory::fnFindPatternIDA(0x00000000, 0x10000000, patterns::keycodeValidation.c_str()) + 0xCD);
+    m_pdwKeycodeValidation = reinterpret_cast<DWORD *>(memory::fnFindPatternIDA(0x00000000, 0x10000000, patterns::keycodeValidation.c_str()) + 0xC3);
 }
 
 void CBypassKeycodes::fnEnable()
