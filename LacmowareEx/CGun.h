@@ -12,7 +12,7 @@ public:
     float RecoilForce;
     BYTE  pad0001[0x1C];
     int   Magazines;
-    BYTE  pad0002[0x34];
+    BYTE  pad0002[0x38];
     int   MaxMagazines;
     BYTE  pad0003[0x18];
 };
