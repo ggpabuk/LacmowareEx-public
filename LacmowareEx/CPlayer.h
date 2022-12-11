@@ -18,8 +18,8 @@ public:
 	float PrevPitch;
 	char  pad0000[0x44];
 	float BlinkTimer;
-	int	  IsAfk;
-	int	  IsDead;
+	int   IsAfk;
+	int   IsDead;
 	char  Ready[0x8];
 	float CrouchState;
 	float PlayerSoundVolume;
