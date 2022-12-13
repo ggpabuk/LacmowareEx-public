@@ -45,7 +45,7 @@ public:
     float Infect;
     float HealTimer;
     int   RefinedItems;
-    BYTE  pad0002[0x1E0];
+    BYTE  pad0002[0x1E4];
     int   GodMode;
     int   Noclip;
     float NoclipSpeed;
