@@ -5,6 +5,9 @@
 #include "keyNames.h"
 #include "Tab.h"
 #include "Imgui/imgui.h"
+#include "burgerking.h"
+#include "govno.h"
+#include "negovno.h"
 
 class CFeature
 {

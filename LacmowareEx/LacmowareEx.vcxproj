@@ -70,7 +70,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(DX9SDK)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,10 +94,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(DX9SDK)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="burgerking.h" />
     <ClInclude Include="CForceVoice.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerListElement.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="CNoBlink.h" />
     <ClInclude Include="CNoclip.h" />
     <ClInclude Include="FiraCode.h" />
+    <ClInclude Include="govno.h" />
     <ClInclude Include="Imgui\imconfig.h" />
     <ClInclude Include="Imgui\imgui.h" />
     <ClInclude Include="Imgui\imgui_impl_dx9.h" />
@@ -125,6 +127,7 @@
     <ClInclude Include="keyNames.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="menuRenderer.h" />
+    <ClInclude Include="negovno.h" />
     <ClInclude Include="processorCpuid.h" />
     <ClInclude Include="CScpStats.h" />
     <ClInclude Include="CServerInfo.h" />

@@ -59,6 +59,7 @@ void CFeature::fnDraw(unsigned int &uElementId)
         if (bIsEnabled != m_bIsEnabled)
         {
             fnToggle();
+            PlaySound(reinterpret_cast<LPCSTR>(m_bIsEnabled ? negovno : govno), NULL, SND_ASYNC | SND_MEMORY);
         }
     }
 
@@ -69,6 +70,11 @@ void CFeature::fnDraw(unsigned int &uElementId)
     sHotkeyLabel.append(std::to_string(uElementId++));
 
     bool bWaitingForKey = ImGui::Button(sHotkeyLabel.c_str(), ImVec2(70, 18));
+    if (bWaitingForKey)
+    {
+        PlaySound(reinterpret_cast<LPCSTR>(burgerking), NULL, SND_ASYNC | SND_MEMORY);
+    }
+
     while (bWaitingForKey)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));

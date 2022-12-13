@@ -171,24 +171,28 @@ namespace menu
         if (ImGui::Button("Combat", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Combat;
+            PlaySound(reinterpret_cast<LPCSTR>(burgerking), NULL, SND_ASYNC | SND_MEMORY);
         }
         
         ImGui::SameLine();
         if (ImGui::Button("Visuals", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Visuals;
+            PlaySound(reinterpret_cast<LPCSTR>(burgerking), NULL, SND_ASYNC | SND_MEMORY);
         }
 
         ImGui::SameLine();
         if (ImGui::Button("Movement", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Movement;
+            PlaySound(reinterpret_cast<LPCSTR>(burgerking), NULL, SND_ASYNC | SND_MEMORY);
         }
 
         ImGui::SameLine();
         if (ImGui::Button("Fun", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Fun;
+            PlaySound(reinterpret_cast<LPCSTR>(burgerking), NULL, SND_ASYNC | SND_MEMORY);
         }
         
         bool bFirst = true;

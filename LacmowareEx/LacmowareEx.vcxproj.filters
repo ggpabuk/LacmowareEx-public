@@ -139,6 +139,15 @@
     <ClInclude Include="FiraCode.h">
       <Filter>Menu\Fonts</Filter>
     </ClInclude>
+    <ClInclude Include="govno.h">
+      <Filter>Menu\Sounds</Filter>
+    </ClInclude>
+    <ClInclude Include="negovno.h">
+      <Filter>Menu\Sounds</Filter>
+    </ClInclude>
+    <ClInclude Include="burgerking.h">
+      <Filter>Menu\Sounds</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -267,6 +276,9 @@
     </Filter>
     <Filter Include="Menu\Fonts">
       <UniqueIdentifier>{161015b3-b0fa-4fec-a56a-d41843b2911c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Sounds">
+      <UniqueIdentifier>{11e9cbef-678b-4c80-991e-82d229864ddc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

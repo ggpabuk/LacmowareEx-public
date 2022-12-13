@@ -18,6 +18,9 @@
 #include "CSpeedhack.h"
 #include "CBypassKeycodes.h"
 #include "FiraCode.h"
+#include "burgerking.h"
+#include "govno.h"
+#include "negovno.h"
 
 #include <Windows.h>
 
