@@ -11,7 +11,7 @@ namespace offsets
 {
     const std::vector<offset_t> base = { 0x11C, 0x00 };
 
-    const offset_t gunContainer   = 0x2464;
+    const offset_t gunContainer   = 0x248C;
     const offset_t visuals        = 0xE50;
     const offset_t playerStats    = 0xB4C;
     const offset_t maynardKeycode = 0xB24;
