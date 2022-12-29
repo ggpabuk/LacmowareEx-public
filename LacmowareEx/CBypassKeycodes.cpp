@@ -1,27 +1,20 @@
 #include "pch.h"
 #include "CBypassKeycodes.h"
 
-CBypassKeycodes::CBypassKeycodes(CHotkey COHotkey) :
-    CFeature("Bypass Keycodes", COHotkey, Tab::Fun)
+CBypassKeycodes::CBypassKeycodes() :
+    CFeature("Bypass Keycodes", CHotkey(), Tab::Fun)
 {
-    ZeroMemory(m_aBuffer1, LENGTH(m_aBuffer1));
-    m_pdwKeycodeValidation = reinterpret_cast<DWORD *>(memory::fnFindPatternIDA(0x00000000, 0x10000000, patterns::keycodeValidation.c_str()) + 0xC3);
 }
 
-void CBypassKeycodes::fnEnable()
+void CBypassKeycodes::fnDraw(unsigned int &uElementId)
 {
-    CFeature::fnEnable();
-
-    BYTE aBuffer[6] =
+    if (!SDK::g_piMaynardKeycode)
     {
-        0xEB, 0x25,             // jmp 0x27 
-        0x90, 0x90, 0x90, 0x90  // nop 4x
-    };
-    memory::fnReplaceWithBuffer(m_pdwKeycodeValidation, m_aBuffer1, aBuffer, LENGTH(aBuffer));
-}
+        return;
+    }
 
-void CBypassKeycodes::fnDisable()
-{
-    CFeature::fnDisable();
-    memcpy(m_pdwKeycodeValidation, m_aBuffer1, LENGTH(m_aBuffer1));
+    ImGui::Text("Maynard key: %i", *SDK::g_piMaynardKeycode);
+
+    int maintenanceKey = (*SDK::g_piMaynardKeycode * 3) % 10000;
+    ImGui::Text("Maintenance tunnel key: %i", maintenanceKey);
 }

@@ -36,7 +36,7 @@ namespace menu
         g_features.push_back(std::make_unique<CInfStamina>(CONoneHotkey));
         g_features.push_back(std::make_unique<CSpeedhack>(CONoneHotkey));
         g_features.push_back(std::make_unique<CForceVoice>(CONoneHotkey));
-        g_features.push_back(std::make_unique<CBypassKeycodes>(CONoneHotkey));
+        g_features.push_back(std::make_unique<CBypassKeycodes>());
 
         std::thread(fnCatchHotkeys).detach();
     }
