@@ -4,16 +4,13 @@
 #include "offsets.h"
 #include "memory.h"
 #include "patterns.h"
+#include "sdk.h"
 
 class CBypassKeycodes :
     public CFeature
 {
-private:
-    BYTE m_aBuffer1[6];
-    DWORD *m_pdwKeycodeValidation;
 public:
-    CBypassKeycodes(CHotkey COHotkey);
+    CBypassKeycodes();
 
-    void fnEnable() override;
-    void fnDisable() override;
+    void fnDraw(unsigned int &uElementId) override;
 };
