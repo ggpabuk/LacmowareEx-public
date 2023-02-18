@@ -133,17 +133,26 @@ namespace menu
     {
         static bool s_bMenuActive = true;
 
+        if (*SDK::g_pppCOServerInfo && **SDK::g_pppCOServerInfo && (**SDK::g_pppCOServerInfo)->isProtected())
+        {
+            for (const auto &feature : g_features)
+            {
+                if (feature->m_bIsEnabled)
+                {
+                    feature->fnDisable();
+                }
+            }
+            
+            SetWindowPos(g_hWnd, HWND_TOPMOST, NULL, NULL, NULL, NULL,
+                SWP_NOMOVE | SWP_NOSIZE | SWP_HIDEWINDOW);
+
+            return;
+        }
+       
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            SetWindowPos(
-                g_hWnd,
-                HWND_TOPMOST,
-                NULL,
-                NULL,
-                NULL,
-                NULL,
-                SWP_NOMOVE | SWP_NOSIZE | (s_bMenuActive ? SWP_HIDEWINDOW : SWP_SHOWWINDOW)
-            );
+            SetWindowPos(g_hWnd, HWND_TOPMOST, NULL, NULL, NULL, NULL,
+                SWP_NOMOVE | SWP_NOSIZE | (s_bMenuActive ? SWP_HIDEWINDOW : SWP_SHOWWINDOW));
 
             s_bMenuActive ^= 1;
         }

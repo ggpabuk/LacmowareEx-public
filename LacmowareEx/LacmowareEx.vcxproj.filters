@@ -233,6 +233,7 @@
     <ClCompile Include="menuRenderer.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
+    <ClCompile Include="CServerInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
