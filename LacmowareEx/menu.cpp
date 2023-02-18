@@ -132,22 +132,6 @@ namespace menu
     void fnDrawMenu()
     {
         static bool s_bMenuActive = true;
-
-        if (*SDK::g_pppCOServerInfo && **SDK::g_pppCOServerInfo && (**SDK::g_pppCOServerInfo)->isProtected())
-        {
-            for (const auto &feature : g_features)
-            {
-                if (feature->m_bIsEnabled)
-                {
-                    feature->fnDisable();
-                }
-            }
-            
-            SetWindowPos(g_hWnd, HWND_TOPMOST, NULL, NULL, NULL, NULL,
-                SWP_NOMOVE | SWP_NOSIZE | SWP_HIDEWINDOW);
-
-            return;
-        }
        
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
@@ -167,10 +151,19 @@ namespace menu
 
         ImGui::Begin("LacmowareEx", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
         unsigned int uElementId = 0;
-        
+
         if (g_pFont)
         {
             ImGui::PushFont(g_pFont);
+        }
+
+        if (*SDK::g_pppCOServerInfo && **SDK::g_pppCOServerInfo && (**SDK::g_pppCOServerInfo)->isProtected())
+        {
+            ImGui::Text("You cannot use hacks on a protected server.");
+
+            ImGui::PopFont();
+            ImGui::End();
+            return;
         }
 
         // Tabs
@@ -218,7 +211,6 @@ namespace menu
         }
 
         ImGui::PopFont();
-
         ImGui::End();
     }
 
@@ -230,6 +222,16 @@ namespace menu
 
             for (const auto &feature : g_features)
             {
+                if (*SDK::g_pppCOServerInfo && **SDK::g_pppCOServerInfo && (**SDK::g_pppCOServerInfo)->isProtected())
+                {
+                    if (feature->m_bIsEnabled)
+                    {
+                        feature->fnDisable();
+                    }
+
+                    continue;
+                }
+
                 const short nKeyState = GetAsyncKeyState(feature->m_COHotkey.m_iVKey);
 
                 if (feature->m_COHotkey.m_bHoldToUse)
