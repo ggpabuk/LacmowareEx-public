@@ -12,9 +12,9 @@ namespace offsets
     const std::vector<offset_t> base = { 0x11C, 0x00 };
 
     const offset_t gunContainer   = 0x2494;
-    const offset_t visuals        = 0xE58;
+    const offset_t visuals        = 0xE54;
     const offset_t playerStats    = 0xB54;
-    const offset_t maynardKeycode = 0xB2C;
+    const offset_t maynardKeycode = 0xB28;
     const offset_t wireframe      = 0x5F0;
     const offset_t playerList     = OUTDATED;
     const offset_t currentGunId   = OUTDATED;
