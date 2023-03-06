@@ -18,7 +18,7 @@ void CNoFilters::fnEnable()
     freezeManager::g_floatFreezes.insert(std::pair(&SDK::g_pCOVisuals->CameraFogNear, FLT_MAX));
 
     m_oldCameraFogFar = SDK::g_pCOVisuals->CameraFogFar;
-    freezeManager::g_floatFreezes.insert(std::pair(&SDK::g_pCOVisuals->CameraFogFar, FLT_MAX));
+    freezeManager::g_floatFreezes.insert(std::pair(&SDK::g_pCOVisuals->CameraFogFar, 1000));
 }
 
 void CNoFilters::fnDisable()

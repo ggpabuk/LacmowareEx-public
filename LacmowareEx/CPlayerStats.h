@@ -7,7 +7,7 @@ class CPlayerStats
 {
 public:
     float KillTimer;
-    //int   KillAnim;
+    int   KillAnim;
     float FallTimer;
     float DeathTimer;
     float Sanity;
