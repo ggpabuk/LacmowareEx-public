@@ -10,20 +10,21 @@
 #include "Vector3.h"
 #include "memory.h"
 #include "offsets.h"
+#include "CSettings.h"
 
 namespace SDK
 {
-    extern int *g_piWireframe;
-    extern int *g_piGammaUpdate;
-    extern int *g_piCurrentGunId;
-    extern int *g_piMaynardKeycode;
-    extern CVisuals *g_pCOVisuals;
-    extern CScpStats ***g_pppCOScpStats;
-    extern CIntercom ***g_pppCOIntercom;
-    extern CServerInfo ***g_pppCOServerInfo;
-    extern CPlayerStats *g_pCOPlayerStats;
-    extern CGunsContainer ***g_pppCOGunContainer;
-    extern CPlayerListElement *g_pCOPlayerList;
+    extern int *piWireframe;
+    extern int *piCurrentGunId;
+    extern int *piMaynardKeycode;
+    extern CSettings *pCOSettings;
+    extern CVisuals *pCOVisuals;
+    extern CPlayerStats *pCOPlayerStats;
+    extern CPlayerListElement *pCOPlayerList;
+    extern CScpStats ***pppCOScpStats;
+    extern CIntercom ***pppCOIntercom;
+    extern CServerInfo ***pppCOServerInfo;
+    extern CGunsContainer ***pppCOGunContainer;
 
     void fnInit();
 }

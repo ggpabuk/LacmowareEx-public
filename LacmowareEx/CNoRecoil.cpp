@@ -9,7 +9,7 @@ CNoRecoil::CNoRecoil(CHotkey COHotkey) :
 
 void CNoRecoil::fnEnable()
 {
-    if (!*SDK::g_pppCOGunContainer || !**SDK::g_pppCOGunContainer)
+    if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
@@ -18,7 +18,7 @@ void CNoRecoil::fnEnable()
 
     for (unsigned int i = 0; i < gunsCount; ++i)
     {
-        CGun &gun = (**SDK::g_pppCOGunContainer)->Guns[i];
+        CGun &gun = (**SDK::pppCOGunContainer)->Guns[i];
         m_aOldRecoil[i] = gun.RecoilForce;
     }
 
@@ -30,7 +30,7 @@ void CNoRecoil::fnDisable()
     CFeature::fnDisable();
     freezeManager::g_fWeaponsFreezeState &= ~Recoil;
 
-    if (!*SDK::g_pppCOGunContainer || !**SDK::g_pppCOGunContainer)
+    if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
@@ -38,7 +38,7 @@ void CNoRecoil::fnDisable()
     freezeManager::g_weaponsFreezeMutex.lock();
     for (unsigned int i = 0; i < gunsCount; ++i)
     {
-        CGun &gun = (**SDK::g_pppCOGunContainer)->Guns[i];
+        CGun &gun = (**SDK::pppCOGunContainer)->Guns[i];
         gun.RecoilForce = m_aOldRecoil[i];
     }
     freezeManager::g_weaponsFreezeMutex.unlock();

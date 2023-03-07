@@ -36,6 +36,8 @@ namespace menu
         g_features.push_back(std::make_unique<CInfStamina>(CONoneHotkey));
         g_features.push_back(std::make_unique<CSpeedhack>(CONoneHotkey));
         g_features.push_back(std::make_unique<CForceVoice>(CONoneHotkey));
+
+        g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
         g_features.push_back(std::make_unique<CBypassKeycodes>());
 
         std::thread(fnCatchHotkeys).detach();
@@ -157,7 +159,7 @@ namespace menu
             ImGui::PushFont(g_pFont);
         }
 
-        if (*SDK::g_pppCOServerInfo && **SDK::g_pppCOServerInfo && (**SDK::g_pppCOServerInfo)->isProtected())
+        if (*SDK::pppCOServerInfo && **SDK::pppCOServerInfo && (**SDK::pppCOServerInfo)->isProtected())
         {
             ImGui::Text("You cannot use hacks on a protected server.");
 
@@ -210,6 +212,9 @@ namespace menu
             feature->fnDraw(uElementId);
         }
 
+        ImGui::NewLine(); // slider fix
+        ImGui::NewLine(); // dont judge me please
+
         ImGui::PopFont();
         ImGui::End();
     }
@@ -222,7 +227,7 @@ namespace menu
 
             for (const auto &feature : g_features)
             {
-                if (*SDK::g_pppCOServerInfo && **SDK::g_pppCOServerInfo && (**SDK::g_pppCOServerInfo)->isProtected())
+                if (*SDK::pppCOServerInfo && **SDK::pppCOServerInfo && (**SDK::pppCOServerInfo)->isProtected())
                 {
                     if (feature->m_bIsEnabled)
                     {
