@@ -18,6 +18,8 @@
 #include "CSpeedhack.h"
 #include "CBypassKeycodes.h"
 #include "FiraCode.h"
+#include "sdk.h"
+#include "CFovChanger.h"
 
 #include <Windows.h>
 

@@ -48,13 +48,11 @@ void CFeature::fnDraw(unsigned int &uElementId)
     // Manual toggle checkbox
     if (!m_COHotkey.m_bHoldToUse)
     {
-        std::string sEnabledLabel{};
-        sEnabledLabel.append("Enabled");
-        sEnabledLabel.append("##");
-        sEnabledLabel.append(std::to_string(uElementId++));
+        std::string enabledLabel = std::string("Enabled") + "##" +
+            std::to_string(uElementId++);
 
         bool bIsEnabled = m_bIsEnabled;
-        ImGui::Checkbox(sEnabledLabel.c_str(), &bIsEnabled);
+        ImGui::Checkbox(enabledLabel.c_str(), &bIsEnabled);
 
         if (bIsEnabled != m_bIsEnabled)
         {
@@ -63,12 +61,10 @@ void CFeature::fnDraw(unsigned int &uElementId)
     }
 
     // Change hotkey button
-    std::string sHotkeyLabel{};
-    sHotkeyLabel.append(g_aKeyNames[m_COHotkey.m_iVKey]);
-    sHotkeyLabel.append("##");
-    sHotkeyLabel.append(std::to_string(uElementId++));
+    std::string hotkeyLabel = std::string(g_aKeyNames[m_COHotkey.m_iVKey]) + "##" +
+        std::to_string(uElementId++);
 
-    bool bWaitingForKey = ImGui::Button(sHotkeyLabel.c_str(), ImVec2(70, 18));
+    bool bWaitingForKey = ImGui::Button(hotkeyLabel.c_str(), ImVec2(70, 18));
     while (bWaitingForKey)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));

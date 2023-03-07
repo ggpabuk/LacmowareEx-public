@@ -139,6 +139,12 @@
     <ClInclude Include="FiraCode.h">
       <Filter>Menu\Fonts</Filter>
     </ClInclude>
+    <ClInclude Include="CSettings.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CFovChanger.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -232,6 +238,15 @@
     </ClCompile>
     <ClCompile Include="menuRenderer.cpp">
       <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="CSettings.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="CServerInfo.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="CFovChanger.cpp">
+      <Filter>Features\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

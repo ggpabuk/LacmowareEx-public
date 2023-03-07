@@ -10,7 +10,7 @@ CNoBlink::CNoBlink(CHotkey COHotkey) :
 void CNoBlink::fnEnable()
 {
     CFeature::fnEnable();
-    freezeManager::g_floatFreezes.insert(std::pair(&SDK::g_pCOPlayerStats->BlinkTimer, 569.0f));
+    freezeManager::g_floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->BlinkTimer, 569.0f));
 }
 
 void CNoBlink::fnDisable()
@@ -18,6 +18,6 @@ void CNoBlink::fnDisable()
     CFeature::fnDisable();
 
     freezeManager::g_floatFreezesMutex.lock();
-    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::g_pCOPlayerStats->BlinkTimer));
+    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::pCOPlayerStats->BlinkTimer));
     freezeManager::g_floatFreezesMutex.unlock();
 }

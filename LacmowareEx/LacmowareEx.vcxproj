@@ -99,6 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CForceVoice.h" />
+    <ClInclude Include="CFovChanger.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerListElement.h" />
     <ClInclude Include="CPlayerStats.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="CMaxShootSpeed.h" />
     <ClInclude Include="CNoBlink.h" />
     <ClInclude Include="CNoclip.h" />
+    <ClInclude Include="CSettings.h" />
     <ClInclude Include="FiraCode.h" />
     <ClInclude Include="Imgui\imconfig.h" />
     <ClInclude Include="Imgui\imgui.h" />
@@ -151,6 +153,7 @@
     <ClCompile Include="CBypassKeycodes.cpp" />
     <ClCompile Include="CFeature.cpp" />
     <ClCompile Include="CForceVoice.cpp" />
+    <ClCompile Include="CFovChanger.cpp" />
     <ClCompile Include="CHotkey.cpp" />
     <ClCompile Include="CInfAmmo.cpp" />
     <ClCompile Include="CInfStamina.cpp" />
@@ -158,6 +161,8 @@
     <ClCompile Include="CNoBlink.cpp" />
     <ClCompile Include="CNoclip.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
+    <ClCompile Include="CServerInfo.cpp" />
+    <ClCompile Include="CSettings.cpp" />
     <ClCompile Include="Imgui\imgui.cpp" />
     <ClCompile Include="Imgui\imgui_demo.cpp" />
     <ClCompile Include="Imgui\imgui_draw.cpp" />

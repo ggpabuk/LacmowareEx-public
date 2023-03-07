@@ -36,6 +36,8 @@ namespace menu
         g_features.push_back(std::make_unique<CInfStamina>(CONoneHotkey));
         g_features.push_back(std::make_unique<CSpeedhack>(CONoneHotkey));
         g_features.push_back(std::make_unique<CForceVoice>(CONoneHotkey));
+
+        g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
         g_features.push_back(std::make_unique<CBypassKeycodes>());
 
         std::thread(fnCatchHotkeys).detach();
@@ -132,18 +134,11 @@ namespace menu
     void fnDrawMenu()
     {
         static bool s_bMenuActive = true;
-
+       
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            SetWindowPos(
-                g_hWnd,
-                HWND_TOPMOST,
-                NULL,
-                NULL,
-                NULL,
-                NULL,
-                SWP_NOMOVE | SWP_NOSIZE | (s_bMenuActive ? SWP_HIDEWINDOW : SWP_SHOWWINDOW)
-            );
+            SetWindowPos(g_hWnd, HWND_TOPMOST, NULL, NULL, NULL, NULL,
+                SWP_NOMOVE | SWP_NOSIZE | (s_bMenuActive ? SWP_HIDEWINDOW : SWP_SHOWWINDOW));
 
             s_bMenuActive ^= 1;
         }
@@ -158,10 +153,19 @@ namespace menu
 
         ImGui::Begin("LacmowareEx", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
         unsigned int uElementId = 0;
-        
+
         if (g_pFont)
         {
             ImGui::PushFont(g_pFont);
+        }
+
+        if (*SDK::pppCOServerInfo && **SDK::pppCOServerInfo && (**SDK::pppCOServerInfo)->isProtected())
+        {
+            ImGui::Text("You cannot use hacks on a protected server.");
+
+            ImGui::PopFont();
+            ImGui::End();
+            return;
         }
 
         // Tabs
@@ -208,8 +212,10 @@ namespace menu
             feature->fnDraw(uElementId);
         }
 
-        ImGui::PopFont();
+        ImGui::NewLine(); // slider fix
+        ImGui::NewLine(); // dont judge me please
 
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -221,6 +227,16 @@ namespace menu
 
             for (const auto &feature : g_features)
             {
+                if (*SDK::pppCOServerInfo && **SDK::pppCOServerInfo && (**SDK::pppCOServerInfo)->isProtected())
+                {
+                    if (feature->m_bIsEnabled)
+                    {
+                        feature->fnDisable();
+                    }
+
+                    continue;
+                }
+
                 const short nKeyState = GetAsyncKeyState(feature->m_COHotkey.m_iVKey);
 
                 if (feature->m_COHotkey.m_bHoldToUse)

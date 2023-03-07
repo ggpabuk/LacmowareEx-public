@@ -10,7 +10,7 @@ CSpeedhack::CSpeedhack(CHotkey COHotkey) :
 void CSpeedhack::fnEnable()
 {
     CFeature::fnEnable();
-    freezeManager::g_floatFreezes.insert(std::pair(&SDK::g_pCOPlayerStats->CurrentSpeed, m_speed));
+    freezeManager::g_floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->CurrentSpeed, m_speed));
 }
 
 void CSpeedhack::fnDisable()
@@ -18,7 +18,7 @@ void CSpeedhack::fnDisable()
     CFeature::fnDisable();
 
     freezeManager::g_floatFreezesMutex.lock();
-    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::g_pCOPlayerStats->CurrentSpeed));
+    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::pCOPlayerStats->CurrentSpeed));
     freezeManager::g_floatFreezesMutex.unlock();
 }
 

@@ -11,26 +11,26 @@ void CWireframe::fnEnable()
 {
     CFeature::fnEnable();
 
-    int iTemp = *SDK::g_piGammaUpdate;
+    int iTemp = SDK::pCOSettings->m_gammaUpdateDisabled;
 
-    if (iTemp) *SDK::g_piGammaUpdate = 0;
+    if (iTemp) SDK::pCOSettings->m_gammaUpdateDisabled = 0;
 
-    *SDK::g_piWireframe = 1;
+    *SDK::piWireframe = 1;
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-    if (iTemp) *SDK::g_piGammaUpdate = 1;
+    if (iTemp) SDK::pCOSettings->m_gammaUpdateDisabled = 1;
 }
 
 void CWireframe::fnDisable()
 {
     CFeature::fnDisable();
 
-    int iTemp = *SDK::g_piGammaUpdate;
+    int iTemp = SDK::pCOSettings->m_gammaUpdateDisabled;
 
-    if (iTemp) *SDK::g_piGammaUpdate = 0;
+    if (iTemp) SDK::pCOSettings->m_gammaUpdateDisabled = 0;
 
-    *SDK::g_piWireframe = 0;
+    *SDK::piWireframe = 0;
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-    if (iTemp) *SDK::g_piGammaUpdate = 1;
+    if (iTemp) SDK::pCOSettings->m_gammaUpdateDisabled = 1;
 }

@@ -48,10 +48,10 @@ namespace freezeManager
                 g_floatFreezesMutex.unlock();
             }
           
-            if (!*SDK::g_pppCOGunContainer || !**SDK::g_pppCOGunContainer) continue;
+            if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer) continue;
 
             g_weaponsFreezeMutex.lock();
-            for (auto &gun : (**SDK::g_pppCOGunContainer)->Guns)
+            for (auto &gun : (**SDK::pppCOGunContainer)->Guns)
             {
                 if (g_fWeaponsFreezeState & Ammo)
                 {

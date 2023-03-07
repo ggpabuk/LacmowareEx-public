@@ -14,19 +14,19 @@ void CNoclip::fnEnable()
 {
     CFeature::fnEnable();
 
-    SDK::g_pCOPlayerStats->Noclip = 1;
+    SDK::pCOPlayerStats->Noclip = 1;
 
-    freezeManager::g_floatFreezes.insert(std::pair(&SDK::g_pCOPlayerStats->NoclipSpeed, m_noclipSpeed));
+    freezeManager::g_floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->NoclipSpeed, m_noclipSpeed));
 }
 
 void CNoclip::fnDisable()
 {
     CFeature::fnDisable();
 
-    SDK::g_pCOPlayerStats->Noclip = 0;
+    SDK::pCOPlayerStats->Noclip = 0;
 
     freezeManager::g_floatFreezesMutex.lock();
-    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::g_pCOPlayerStats->NoclipSpeed));
+    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::pCOPlayerStats->NoclipSpeed));
     freezeManager::g_floatFreezesMutex.unlock();
 }
 
@@ -34,13 +34,8 @@ void CNoclip::fnDraw(unsigned int &uElementId)
 {
     CFeature::fnDraw(uElementId);
 
-    float speed = m_noclipSpeed;
-    ImGui::SliderFloat("Noclip speed", &speed, 1.0, 10.0);
-
-    if (speed != m_noclipSpeed)
+    if (ImGui::SliderFloat("Noclip speed", &m_noclipSpeed, 1.0, 10.0))
     {
         fnReload();
     }
-
-    m_noclipSpeed = speed;
 }

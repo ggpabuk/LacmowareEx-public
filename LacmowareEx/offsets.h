@@ -11,11 +11,11 @@ namespace offsets
 {
     const std::vector<offset_t> base = { 0x11C, 0x00 };
 
-    const offset_t gunContainer   = 0x2494;
-    const offset_t visuals        = 0xE58;
-    const offset_t playerStats    = 0xB54;
-    const offset_t maynardKeycode = 0xB2C;
-    const offset_t wireframe      = 0x5F0;
+    const offset_t gunContainer   = 0x24C0;
+    const offset_t visuals        = 0xE80;
+    const offset_t playerStats    = 0xB7C;
+    const offset_t maynardKeycode = 0xB54;
+    const offset_t wireframe      = 0x61C;
     const offset_t playerList     = OUTDATED;
     const offset_t currentGunId   = OUTDATED;
     const offset_t serverInfo     = 0x44;

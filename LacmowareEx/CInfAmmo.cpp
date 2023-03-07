@@ -9,7 +9,7 @@ CInfAmmo::CInfAmmo(CHotkey COHotkey) :
 
 void CInfAmmo::fnEnable()
 {
-    if (!*SDK::g_pppCOGunContainer || !**SDK::g_pppCOGunContainer)
+    if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
@@ -23,13 +23,13 @@ void CInfAmmo::fnDisable()
     CFeature::fnDisable();
     freezeManager::g_fWeaponsFreezeState &= ~Ammo;
 
-    if (!*SDK::g_pppCOGunContainer || !**SDK::g_pppCOGunContainer)
+    if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
 
     freezeManager::g_weaponsFreezeMutex.lock();
-    for (auto &gun : (**SDK::g_pppCOGunContainer)->Guns)
+    for (auto &gun : (**SDK::pppCOGunContainer)->Guns)
     {
         gun.CurrentAmmo = gun.MaxAmmo;
     }
