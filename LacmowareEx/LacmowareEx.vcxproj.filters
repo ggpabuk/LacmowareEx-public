@@ -239,9 +239,6 @@
     <ClCompile Include="menuRenderer.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
-    <ClCompile Include="CSettings.cpp">
-      <Filter>Sdk</Filter>
-    </ClCompile>
     <ClCompile Include="CServerInfo.cpp">
       <Filter>Sdk</Filter>
     </ClCompile>

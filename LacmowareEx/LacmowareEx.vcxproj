@@ -162,7 +162,6 @@
     <ClCompile Include="CNoclip.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
     <ClCompile Include="CServerInfo.cpp" />
-    <ClCompile Include="CSettings.cpp" />
     <ClCompile Include="Imgui\imgui.cpp" />
     <ClCompile Include="Imgui\imgui_demo.cpp" />
     <ClCompile Include="Imgui\imgui_draw.cpp" />

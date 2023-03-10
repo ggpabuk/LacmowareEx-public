@@ -8,7 +8,7 @@ class CPlayerListElement
 {
 public:
 	
-	CPlayer* *m_COplayer;
+	CPlayer **m_COplayer;
 
 	bool fnIsPlayerValid();
 	CPlayerListElement *fnGetNext();
