@@ -6,12 +6,14 @@
 
 namespace freezeManager
 {
-    extern std::map<float *, float> g_floatFreezes;
-    extern std::map<int *, int> g_intFreezes;
-    extern BYTE g_fWeaponsFreezeState;
-    extern std::mutex g_floatFreezesMutex;
-    extern std::mutex g_intFreezesMutex;
-    extern std::mutex g_weaponsFreezeMutex;
+    extern std::map<float *, float> floatFreezes;
+    extern std::map<int *, int> intFreezes;
+    extern BYTE fWeaponsFreezeState;
+    extern bool peanutFreeze;
+    extern std::mutex floatFreezesMutex;
+    extern std::mutex intFreezesMutex;
+    extern std::mutex weaponsFreezeMutex;
+    extern std::mutex peanutFreezeMutex;
 
     void fnInit();
     void fnFreezeAll();

@@ -16,7 +16,7 @@ void CNoclip::fnEnable()
 
     SDK::pCOPlayerStats->Noclip = 1;
 
-    freezeManager::g_floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->NoclipSpeed, m_noclipSpeed));
+    freezeManager::floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->NoclipSpeed, m_noclipSpeed));
 }
 
 void CNoclip::fnDisable()
@@ -25,9 +25,9 @@ void CNoclip::fnDisable()
 
     SDK::pCOPlayerStats->Noclip = 0;
 
-    freezeManager::g_floatFreezesMutex.lock();
-    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::pCOPlayerStats->NoclipSpeed));
-    freezeManager::g_floatFreezesMutex.unlock();
+    freezeManager::floatFreezesMutex.lock();
+    freezeManager::floatFreezes.erase(freezeManager::floatFreezes.find(&SDK::pCOPlayerStats->NoclipSpeed));
+    freezeManager::floatFreezesMutex.unlock();
 }
 
 void CNoclip::fnDraw(unsigned int &uElementId)

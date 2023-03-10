@@ -22,24 +22,24 @@ void CNoRecoil::fnEnable()
         m_aOldRecoil[i] = gun.RecoilForce;
     }
 
-    freezeManager::g_fWeaponsFreezeState |= Recoil;
+    freezeManager::fWeaponsFreezeState |= Recoil;
 }
 
 void CNoRecoil::fnDisable()
 {
     CFeature::fnDisable();
-    freezeManager::g_fWeaponsFreezeState &= ~Recoil;
+    freezeManager::fWeaponsFreezeState &= ~Recoil;
 
     if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
 
-    freezeManager::g_weaponsFreezeMutex.lock();
+    freezeManager::weaponsFreezeMutex.lock();
     for (unsigned int i = 0; i < gunsCount; ++i)
     {
         CGun &gun = (**SDK::pppCOGunContainer)->Guns[i];
         gun.RecoilForce = m_aOldRecoil[i];
     }
-    freezeManager::g_weaponsFreezeMutex.unlock();
+    freezeManager::weaponsFreezeMutex.unlock();
 }

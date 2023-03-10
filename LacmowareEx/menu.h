@@ -20,6 +20,7 @@
 #include "FiraCode.h"
 #include "sdk.h"
 #include "CFovChanger.h"
+#include "CBypassPeanut.h"
 
 #include <Windows.h>
 

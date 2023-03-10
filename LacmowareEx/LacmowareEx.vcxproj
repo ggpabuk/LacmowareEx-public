@@ -98,6 +98,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBypassPeanut.h" />
     <ClInclude Include="CForceVoice.h" />
     <ClInclude Include="CFovChanger.h" />
     <ClInclude Include="CPlayer.h" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBypassKeycodes.cpp" />
+    <ClCompile Include="CBypassPeanut.cpp" />
     <ClCompile Include="CFeature.cpp" />
     <ClCompile Include="CForceVoice.cpp" />
     <ClCompile Include="CFovChanger.cpp" />
