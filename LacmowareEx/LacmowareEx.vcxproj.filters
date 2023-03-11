@@ -91,7 +91,7 @@
     <ClInclude Include="CPlayerListElement.h">
       <Filter>Sdk</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="CVector3.h">
       <Filter>Sdk</Filter>
     </ClInclude>
     <ClInclude Include="sdk.h">
@@ -147,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="CBypassPeanut.h">
       <Filter>Features\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="breachType.h">
+      <Filter>Sdk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,9 +207,6 @@
       <Filter>Features\Fun</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerListElement.cpp">
-      <Filter>Sdk</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
       <Filter>Sdk</Filter>
     </ClCompile>
     <ClCompile Include="sdk.cpp">

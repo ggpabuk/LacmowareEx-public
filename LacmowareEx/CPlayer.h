@@ -1,12 +1,12 @@
 #pragma once
 
+#include "CVector3.h"
+
 class CPlayer
 {
 public:
 	unsigned int m_id;         // 0x00
-	float m_x;                 // 0x04
-	float m_y;                 // 0x08
-	float m_z;                 // 0x0C
+    CVector3 m_position;       // 0x04
 	float m_yaw;               // 0x10
 	float m_bonePitch;         // 0x14
     char pad_0001[0x64];

@@ -7,7 +7,6 @@
 class CPlayerListElement
 {
 public:
-	
 	CPlayer **m_COplayer;
 
 	bool fnIsPlayerValid();
