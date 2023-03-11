@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CNoclip.h"
 
-CFeature *CNoclip::m_pCOInstance;
+CNoclip *CNoclip::m_pCOInstance;
 
 CNoclip::CNoclip(CHotkey COHotkey) :
     CFeature("Noclip", COHotkey, Tab::Movement)
@@ -14,16 +14,19 @@ void CNoclip::fnEnable()
 {
     CFeature::fnEnable();
 
-    SDK::pCOPlayerStats->Noclip = 1;
-
+    freezeManager::intFreezes.insert(std::pair(&SDK::pCOPlayerStats->Noclip, 1));
     freezeManager::floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->NoclipSpeed, m_noclipSpeed));
 }
 
 void CNoclip::fnDisable()
 {
     CFeature::fnDisable();
+    m_COHotkey.m_bHoldToUse = true;
 
+    freezeManager::intFreezesMutex.lock();
+    freezeManager::intFreezes.erase(freezeManager::intFreezes.find(&SDK::pCOPlayerStats->Noclip));
     SDK::pCOPlayerStats->Noclip = 0;
+    freezeManager::intFreezesMutex.unlock();
 
     freezeManager::floatFreezesMutex.lock();
     freezeManager::floatFreezes.erase(freezeManager::floatFreezes.find(&SDK::pCOPlayerStats->NoclipSpeed));

@@ -235,7 +235,7 @@ namespace menu
         while (true)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
-            if (!hotkeysMutex.try_lock()) continue;
+            hotkeysMutex.lock();
 
             for (const auto &feature : g_features)
             {

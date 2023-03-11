@@ -68,7 +68,10 @@ namespace freezeManager
                 floatFreezesMutex.unlock();
             }
 
-            if (peanutFreeze && SDK::pCOPlayerList && peanutFreezeMutex.try_lock())
+            if (peanutFreeze && 
+                SDK::pCOPlayerList && SDK::pCOPlayerList->fnIsPlayerValid() && 
+                (*SDK::pCOPlayerList->m_COplayer)->m_breachType == 5 &&
+                peanutFreezeMutex.try_lock())
             {
                 auto setTimer = [&](CPlayerListElement *pElement)
                 {

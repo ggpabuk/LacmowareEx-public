@@ -21,8 +21,7 @@ void CPlayers::fnDraw(unsigned int &uElementId)
         {
             menu::hotkeysMutex.lock();
 
-            bool noclipDisabled = !CNoclip::m_pCOInstance->m_bIsEnabled;
-            if (noclipDisabled)
+            if (!CNoclip::m_pCOInstance->m_bIsEnabled)
             {
                 CNoclip::m_pCOInstance->fnEnable();
             }
@@ -31,11 +30,7 @@ void CPlayers::fnDraw(unsigned int &uElementId)
             positionWritable->m_y = 830.0;
             positionWritable->m_z = 130.0;
 
-            if (noclipDisabled)
-            {
-                std::this_thread::sleep_for(std::chrono::milliseconds(700));
-                CNoclip::m_pCOInstance->fnDisable();
-            }
+            CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
 
             menu::hotkeysMutex.unlock();
         }
@@ -53,7 +48,9 @@ void CPlayers::fnDraw(unsigned int &uElementId)
 
             if (!pPlayer->m_isDead)
             {
+#if !_DEBUG
                 if (pElement != SDK::pCOPlayerList) // != localplayer
+#endif
                 {
                     CVector3 *positionWritable = SDK::getPositionWritable();
                     
@@ -66,19 +63,14 @@ void CPlayers::fnDraw(unsigned int &uElementId)
                     {
                         menu::hotkeysMutex.lock();
 
-                        bool noclipDisabled = !CNoclip::m_pCOInstance->m_bIsEnabled;
-                        if (noclipDisabled)
+                        if (!CNoclip::m_pCOInstance->m_bIsEnabled)
                         {
                             CNoclip::m_pCOInstance->fnEnable();
                         }
 
                         memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));
 
-                        if (noclipDisabled)
-                        {
-                            std::this_thread::sleep_for(std::chrono::milliseconds(700));
-                            CNoclip::m_pCOInstance->fnDisable();
-                        }
+                        CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
 
                         menu::hotkeysMutex.unlock();
                     }
