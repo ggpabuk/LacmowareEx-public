@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CNoclip.h"
 
-CNoclip *CNoclip::m_pCOInstance;
+CFeature *CNoclip::m_pCOInstance;
 
 CNoclip::CNoclip(CHotkey COHotkey) :
     CFeature("Noclip", COHotkey, Tab::Movement)

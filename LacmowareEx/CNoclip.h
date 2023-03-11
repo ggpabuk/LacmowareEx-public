@@ -13,7 +13,7 @@ class CNoclip
 private:
     float m_noclipSpeed;
 public:
-    static CNoclip *m_pCOInstance;
+    static CFeature *m_pCOInstance;
 
     CNoclip(CHotkey COHotkey);
 

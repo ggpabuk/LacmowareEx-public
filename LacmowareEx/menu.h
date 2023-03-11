@@ -30,6 +30,8 @@ namespace menu
     constexpr int iWidth = 600;
     constexpr int iHeight = 400;
 
+    extern std::mutex hotkeysMutex;
+
     void fnInit(HWND hWnd);
     void fnSetTheme();
     void fnDrawMenu();

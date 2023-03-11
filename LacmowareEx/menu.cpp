@@ -1,3 +1,4 @@
+
 #include "pch.h"
 #include "menu.h"
 
@@ -8,6 +9,8 @@ namespace menu
     static std::vector<featureUnique_t> g_features{};
     static HWND g_hWnd;
     static ImFont *g_pFont;
+
+    std::mutex hotkeysMutex;
 
     void fnInit(HWND hWnd)
     {
@@ -232,6 +235,7 @@ namespace menu
         while (true)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            if (!hotkeysMutex.try_lock()) continue;
 
             for (const auto &feature : g_features)
             {
@@ -266,6 +270,8 @@ namespace menu
                     feature->fnToggle();
                 }
             }
+
+            hotkeysMutex.unlock();
         }
     }
 }
