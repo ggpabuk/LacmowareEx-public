@@ -12,10 +12,12 @@ namespace freezeManager
     std::map<float *, float> floatFreezes;
     BYTE fWeaponsFreezeState;
     bool peanutFreeze;
+    bool noblinkFreeze;
     std::mutex intFreezesMutex;
     std::mutex floatFreezesMutex;
     std::mutex weaponsFreezeMutex;
     std::mutex peanutFreezeMutex;
+    std::mutex noblinkFreezeMutex;
 
     void fnInit()
     {
@@ -40,7 +42,7 @@ namespace freezeManager
             now = std::chrono::system_clock::now();
             deltatime = now - last;
             last = now;
-            
+
             printf("Freeze manager delta time: %.3f\n", deltatime);
 #endif
 
@@ -68,10 +70,8 @@ namespace freezeManager
                 floatFreezesMutex.unlock();
             }
 
-            if (peanutFreeze && 
-                SDK::pCOPlayerList && SDK::pCOPlayerList->fnIsPlayerValid() && 
-                (*SDK::pCOPlayerList->m_COplayer)->m_breachType == 5 &&
-                peanutFreezeMutex.try_lock())
+            if (peanutFreeze && SDK::pCOPlayerList && SDK::pCOPlayerList->fnIsPlayerValid() &&
+                (*SDK::pCOPlayerList->m_COplayer)->m_breachType == 5 && peanutFreezeMutex.try_lock())
             {
                 auto setTimer = [&](CPlayerListElement *pElement)
                 {
@@ -83,7 +83,12 @@ namespace freezeManager
 
                 peanutFreezeMutex.unlock();
             }
-          
+            else if (noblinkFreeze && noblinkFreezeMutex.try_lock())
+            {
+                SDK::pCOPlayerStats->BlinkTimer = 500.0;
+                noblinkFreezeMutex.unlock();
+            }
+
             if (*SDK::pppCOGunContainer && **SDK::pppCOGunContainer)
             {
                 weaponsFreezeMutex.lock();
