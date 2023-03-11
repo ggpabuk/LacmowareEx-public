@@ -2,12 +2,14 @@
 
 #include "CPlayer.h"
 #include "memory.h"
-#include <Windows.h>
+#include <functional>
 
 class CPlayerListElement
 {
 public:
 	CPlayer **m_COplayer;
+
+    static void foreach(std::function<void(CPlayerListElement *)> callback);
 
 	bool fnIsPlayerValid();
 	CPlayerListElement *fnGetNext();
