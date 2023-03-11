@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CPlayers.h"
+#include "CNoclip.h"
 
 CPlayers::CPlayers() :
     CFeature("Players", CHotkey(), Tab::Players)
@@ -25,18 +26,24 @@ void CPlayers::fnDraw(unsigned int &uElementId)
             {
                 //ImGui::SameLine();
                 //ImGui::Text("%.f hp", pPlayer->m_health);
-
+                
                 if (pElement != SDK::pCOPlayerList) // != localplayer
                 {
                     CVector3 *positionWritable = SDK::getPositionWritable();
                     
                     ImGui::SameLine();
-                    ImGui::Text("(%.3f)", positionWritable->distance(&pPlayer->m_position));
+                    ImGui::Text("(%.1fm)", positionWritable->distance(&pPlayer->m_position));
                     
                     std::string btnlabel = std::string("TP##") + std::to_string(uElementId++);
                     ImGui::SameLine();
                     if (ImGui::SmallButton(btnlabel.c_str()) && positionWritable)
                     {
+                        if (!CNoclip::m_pCOInstance->m_bIsEnabled)
+                        {
+                            CNoclip::m_pCOInstance->fnEnable();
+                            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+                        }
+
                         memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));
                     }
                 }

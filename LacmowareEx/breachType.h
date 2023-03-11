@@ -20,4 +20,5 @@ static const char *const g_breachType[] =
     "SCP-860-2",
     "SCP-035",
     "CLERK",
+    "LOBBY",
 };

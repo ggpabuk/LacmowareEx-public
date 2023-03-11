@@ -12,7 +12,8 @@ void CPlayerListElement::foreach(std::function<void(CPlayerListElement *)> callb
 
     for (UINT i = 0; i < online;)
     {
-        if (!SDK::pCOPlayerList || !*SDK::pppCOServerInfo || !**SDK::pppCOServerInfo) break;
+        if (!SDK::pCOPlayerList || !SDK::pCOPlayerList->fnIsPlayerValid()
+            || !*SDK::pppCOServerInfo || !**SDK::pppCOServerInfo) break;
 
         if (pElement->fnIsPlayerValid())
         {
