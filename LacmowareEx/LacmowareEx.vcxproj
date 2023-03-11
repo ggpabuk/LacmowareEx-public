@@ -103,6 +103,7 @@
     <ClInclude Include="CFovChanger.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerListElement.h" />
+    <ClInclude Include="CPlayers.h" />
     <ClInclude Include="CPlayerStats.h" />
     <ClInclude Include="CBypassKeycodes.h" />
     <ClInclude Include="CFeature.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="CNoBlink.cpp" />
     <ClCompile Include="CNoclip.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
+    <ClCompile Include="CPlayers.cpp" />
     <ClCompile Include="CServerInfo.cpp" />
     <ClCompile Include="Imgui\imgui.cpp" />
     <ClCompile Include="Imgui\imgui_demo.cpp" />

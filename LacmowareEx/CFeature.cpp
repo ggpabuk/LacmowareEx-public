@@ -61,7 +61,7 @@ void CFeature::fnDraw(unsigned int &uElementId)
     }
 
     // Change hotkey button
-    std::string hotkeyLabel = std::string(g_aKeyNames[m_COHotkey.m_iVKey]) + "##" +
+    std::string hotkeyLabel = std::string(g_keyNames[m_COHotkey.m_iVKey]) + "##" +
         std::to_string(uElementId++);
 
     bool bWaitingForKey = ImGui::Button(hotkeyLabel.c_str(), ImVec2(70, 18));
@@ -69,7 +69,7 @@ void CFeature::fnDraw(unsigned int &uElementId)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-        for (size_t keyIndex = 0; keyIndex <= LENGTH(g_aKeyNames); ++keyIndex)
+        for (size_t keyIndex = 0; keyIndex <= LENGTH(g_keyNames); ++keyIndex)
         {
             if (~GetAsyncKeyState(keyIndex) & 0x8000) continue;
             

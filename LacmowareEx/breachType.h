@@ -1,9 +1,9 @@
 #pragma once
 
-const char *g_breachType[] =
+static const char *const g_breachType[] =
 {
     "SPECTATOR",
-    "NTF",
+    "MTF",
     "GUARD",
     "CLASS-D",
     "SCIENTIST",
@@ -17,5 +17,7 @@ const char *g_breachType[] =
     "SCP-966",
     "SCP-049-1",
     "SCP-096",
-    "WAIT",
+    "SCP-860-2",
+    "SCP-035",
+    "CLERK",
 };

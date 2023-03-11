@@ -21,6 +21,7 @@
 #include "sdk.h"
 #include "CFovChanger.h"
 #include "CBypassPeanut.h"
+#include "CPlayers.h"
 
 #include <Windows.h>
 

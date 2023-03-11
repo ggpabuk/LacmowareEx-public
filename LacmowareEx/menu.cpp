@@ -37,8 +37,9 @@ namespace menu
         g_features.push_back(std::make_unique<CSpeedhack>(CONoneHotkey));
         g_features.push_back(std::make_unique<CForceVoice>(CONoneHotkey));
         g_features.push_back(std::make_unique<CBypassPeanut>(CONoneHotkey));
-
         g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
+
+        g_features.push_back(std::make_unique<CPlayers>());
         g_features.push_back(std::make_unique<CBypassKeycodes>());
 
         std::thread(fnCatchHotkeys).detach();
@@ -194,6 +195,12 @@ namespace menu
         if (ImGui::Button("Fun", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Fun;
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Players", tabsButtonSize))
+        {
+            s_iCurrentTab = Tab::Players;
         }
         
         bool bFirst = true;

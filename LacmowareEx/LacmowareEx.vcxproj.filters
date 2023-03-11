@@ -151,6 +151,9 @@
     <ClInclude Include="breachType.h">
       <Filter>Sdk</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayers.h">
+      <Filter>Features\Players</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -251,6 +254,9 @@
     <ClCompile Include="CBypassPeanut.cpp">
       <Filter>Features\Movement</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayers.cpp">
+      <Filter>Features\Players</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -285,6 +291,9 @@
     </Filter>
     <Filter Include="Menu\Fonts">
       <UniqueIdentifier>{161015b3-b0fa-4fec-a56a-d41843b2911c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Players">
+      <UniqueIdentifier>{089b5f6b-92b9-4c15-9b11-bf37ec7aab58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

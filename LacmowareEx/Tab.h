@@ -5,5 +5,6 @@ enum Tab : BYTE
     Combat,
     Visuals,
     Movement,
-    Fun
+    Fun,
+    Players
 };

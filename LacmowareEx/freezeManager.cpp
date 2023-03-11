@@ -70,12 +70,12 @@ namespace freezeManager
 
             if (peanutFreeze && SDK::pCOPlayerList && peanutFreezeMutex.try_lock())
             {
-                CPlayerListElement *element = SDK::pCOPlayerList;
-                while (element->fnIsPlayerValid())
+                CPlayerListElement *pElement = SDK::pCOPlayerList;
+                while (pElement->fnIsPlayerValid())
                 {
-                    CPlayer *player = *element->m_COplayer;
-                    player->m_blinkTimer = -11;
-                    element = element->fnGetNext();
+                    CPlayer *pPlayer = *pElement->m_COplayer;
+                    pPlayer->m_blinkTimer = -11; // ( -16 + (-6) ) / 2
+                    pElement = pElement->fnGetNext();
                 }
 
                 peanutFreezeMutex.unlock();
