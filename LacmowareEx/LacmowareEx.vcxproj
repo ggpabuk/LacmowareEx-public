@@ -98,6 +98,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="breachTeam.h" />
     <ClInclude Include="CBypassPeanut.h" />
     <ClInclude Include="CForceVoice.h" />
     <ClInclude Include="CFovChanger.h" />
@@ -164,9 +165,11 @@
     <ClCompile Include="CMaxShootSpeed.cpp" />
     <ClCompile Include="CNoBlink.cpp" />
     <ClCompile Include="CNoclip.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
     <ClCompile Include="CPlayers.cpp" />
     <ClCompile Include="CServerInfo.cpp" />
+    <ClCompile Include="CVector3.cpp" />
     <ClCompile Include="Imgui\imgui.cpp" />
     <ClCompile Include="Imgui\imgui_demo.cpp" />
     <ClCompile Include="Imgui\imgui_draw.cpp" />

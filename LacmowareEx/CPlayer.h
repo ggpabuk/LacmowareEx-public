@@ -1,10 +1,15 @@
 #pragma once
 
 #include "CVector3.h"
+#include "breachTeam.h"
+#include "Imgui/imgui.h"
 
 class CPlayer
 {
 public:
+    breachTeam getTeam();
+    ImU32 getRoleColor();
+
 	unsigned int m_id;         // 0x00
     CVector3 m_position;       // 0x04
 	float m_yaw;               // 0x10

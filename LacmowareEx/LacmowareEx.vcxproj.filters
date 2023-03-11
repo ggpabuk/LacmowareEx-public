@@ -154,6 +154,9 @@
     <ClInclude Include="CPlayers.h">
       <Filter>Features\Players</Filter>
     </ClInclude>
+    <ClInclude Include="breachTeam.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -256,6 +259,12 @@
     </ClCompile>
     <ClCompile Include="CPlayers.cpp">
       <Filter>Features\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="CVector3.cpp">
+      <Filter>Sdk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

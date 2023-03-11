@@ -17,7 +17,9 @@ void CPlayers::fnDraw(unsigned int &uElementId)
 
         if (!s_hideDead || !pPlayer->m_isDead)
         {
+            ImGui::PushStyleColor(ImGuiCol_Text, pPlayer->getRoleColor());
             ImGui::Text("[%d] %s", pPlayer->m_id, g_breachType[pPlayer->m_breachType]);
+            ImGui::PopStyleColor();
 
             if (!pPlayer->m_isDead)
             {
@@ -26,9 +28,13 @@ void CPlayers::fnDraw(unsigned int &uElementId)
 
                 if (pElement != SDK::pCOPlayerList) // != localplayer
                 {
-                    ImGui::SameLine();
                     CVector3 *positionWritable = SDK::getPositionWritable();
+                    
+                    ImGui::SameLine();
+                    ImGui::Text("(%.3f)", positionWritable->distance(&pPlayer->m_position));
+                    
                     std::string btnlabel = std::string("TP##") + std::to_string(uElementId++);
+                    ImGui::SameLine();
                     if (ImGui::SmallButton(btnlabel.c_str()) && positionWritable)
                     {
                         memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));
