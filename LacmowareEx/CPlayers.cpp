@@ -9,8 +9,28 @@ CPlayers::CPlayers() :
 
 void CPlayers::fnDraw(unsigned int &uElementId)
 {
+    static const auto noclipDelay = std::chrono::milliseconds(500);
+
     static bool s_hideDead = false;
     ImGui::Checkbox("Hide dead", &s_hideDead);
+
+    ImGui::SameLine();
+    if (ImGui::SmallButton("SCP-1499 Warp"))
+    {
+        CVector3 *positionWritable = SDK::getPositionWritable();
+        if (positionWritable)
+        {
+            if (!CNoclip::m_pCOInstance->m_bIsEnabled)
+            {
+                CNoclip::m_pCOInstance->fnEnable();
+                std::this_thread::sleep_for(std::chrono::milliseconds(noclipDelay));
+            }
+
+            positionWritable->m_x = 45.0;
+            positionWritable->m_y = 830.0;
+            positionWritable->m_z = 130.0;
+        }
+    }
 
     auto renderPlayer = [&](CPlayerListElement *pElement)
     {
@@ -41,7 +61,7 @@ void CPlayers::fnDraw(unsigned int &uElementId)
                         if (!CNoclip::m_pCOInstance->m_bIsEnabled)
                         {
                             CNoclip::m_pCOInstance->fnEnable();
-                            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+                            std::this_thread::sleep_for(std::chrono::milliseconds(noclipDelay));
                         }
 
                         memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));

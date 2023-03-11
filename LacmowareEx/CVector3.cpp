@@ -2,6 +2,17 @@
 #include "CVector3.h"
 #include <cmath>
 
+CVector3::CVector3()
+{
+}
+
+CVector3::CVector3(float x, float y, float z)
+{
+    m_x = x;
+    m_y = y;
+    m_z = z;
+}
+
 float CVector3::distance(CVector3 *vec1, CVector3 *pos2)
 {
     return std::sqrt(
