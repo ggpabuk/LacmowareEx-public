@@ -23,12 +23,13 @@ void CPlayers::fnDraw(unsigned int &uElementId)
             if (!CNoclip::m_pCOInstance->m_bIsEnabled)
             {
                 CNoclip::m_pCOInstance->fnEnable();
-                std::this_thread::sleep_for(std::chrono::milliseconds(noclipDelay));
             }
 
             positionWritable->m_x = 45.0;
             positionWritable->m_y = 830.0;
             positionWritable->m_z = 130.0;
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(noclipDelay));
         }
     }
 
