@@ -24,15 +24,16 @@ void CPlayers::fnDraw(unsigned int &uElementId)
                 //ImGui::SameLine();
                 //ImGui::Text("%.f hp", pPlayer->m_health);
 
-                /*
                 if (pElement != SDK::pCOPlayerList) // != localplayer
                 {
-                    ImGui::SameLine(0.5);
-                    if (ImGui::SmallButton("TP"))
+                    ImGui::SameLine();
+                    CVector3 *positionWritable = SDK::getPositionWritable();
+                    std::string btnlabel = std::string("TP##") + std::to_string(uElementId++);
+                    if (ImGui::SmallButton(btnlabel.c_str()) && positionWritable)
                     {
+                        memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));
                     }
                 }
-                */
             }
         }
     };

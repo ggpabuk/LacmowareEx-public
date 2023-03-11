@@ -10,6 +10,7 @@ typedef int offset_t;
 namespace offsets
 {
     const std::vector<offset_t> base = { 0x11C, 0x00 };
+    const std::vector<offset_t> positionWritable = { 0x04, 0x04, 0x40 };
 
     const offset_t gunContainer   = 0x24C0;
     const offset_t visuals        = 0xE80;

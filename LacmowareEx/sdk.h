@@ -27,4 +27,5 @@ namespace SDK
     extern CGunsContainer ***pppCOGunContainer;
 
     void fnInit();
+    CVector3 *getPositionWritable();
 }
