@@ -36,6 +36,6 @@ namespace SDK
     CVector3 *getPositionWritable()
     {
         auto gameModule = (DWORD)GetModuleHandle(NULL);
-        return reinterpret_cast<CVector3 *>(memory::fnFindDMAAddy(gameModule + 0x000FA948, offsets::positionWritable));
+        return reinterpret_cast<CVector3 *>(memory::fnFindDMAAddy(gameModule + 0x000F68FC, offsets::positionWritable));
     }
 }

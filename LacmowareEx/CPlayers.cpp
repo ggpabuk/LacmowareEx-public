@@ -13,29 +13,6 @@ void CPlayers::fnDraw(unsigned int &uElementId)
     static bool s_hideDead = false;
     ImGui::Checkbox("Hide dead", &s_hideDead);
 
-    ImGui::SameLine();
-    if (ImGui::SmallButton("SCP-1499 Warp"))
-    {
-        CVector3 *positionWritable = SDK::getPositionWritable();
-        if (positionWritable)
-        {
-            menu::hotkeysMutex.lock();
-
-            if (!CNoclip::m_pCOInstance->m_bIsEnabled)
-            {
-                CNoclip::m_pCOInstance->fnEnable();
-            }
-
-            positionWritable->m_x = 45.0;
-            positionWritable->m_y = 830.0;
-            positionWritable->m_z = 130.0;
-
-            CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
-
-            menu::hotkeysMutex.unlock();
-        }
-    }
-
     auto renderPlayer = [&](CPlayerListElement *pElement)
     {
         CPlayer *pPlayer = *pElement->m_COplayer;
@@ -80,4 +57,26 @@ void CPlayers::fnDraw(unsigned int &uElementId)
     };
 
     CPlayerListElement::foreach(renderPlayer);
+
+    if (ImGui::SmallButton("SCP-1499 Warp"))
+    {
+        CVector3 *positionWritable = SDK::getPositionWritable();
+        if (positionWritable)
+        {
+            menu::hotkeysMutex.lock();
+
+            if (!CNoclip::m_pCOInstance->m_bIsEnabled)
+            {
+                CNoclip::m_pCOInstance->fnEnable();
+            }
+
+            positionWritable->m_x = 45.0;
+            positionWritable->m_y = 830.0;
+            positionWritable->m_z = 130.0;
+
+            CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
+
+            menu::hotkeysMutex.unlock();
+        }
+    }
 }
