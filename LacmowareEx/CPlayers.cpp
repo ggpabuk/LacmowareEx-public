@@ -23,17 +23,17 @@ void CPlayers::fnDraw(unsigned int &uElementId)
             ImGui::Text("[%d] %s", pPlayer->m_id, g_breachType[pPlayer->m_breachType]);
             ImGui::PopStyleColor();
 
-            if (!pPlayer->m_isDead)
-            {
 #if !_DEBUG
-                if (pElement != SDK::pCOPlayerList) // != localplayer
+            if (pElement != SDK::pCOPlayerList) // != localplayer
 #endif
+            {
+                CVector3 *positionWritable = SDK::getPositionWritable();
+
+                ImGui::SameLine();
+                ImGui::Text("(%.1fm)", positionWritable->distance(&pPlayer->m_position));
+
+                if (!pPlayer->m_isDead)
                 {
-                    CVector3 *positionWritable = SDK::getPositionWritable();
-                    
-                    ImGui::SameLine();
-                    ImGui::Text("(%.1fm)", positionWritable->distance(&pPlayer->m_position));
-                    
                     std::string btnlabel = std::string("TP##") + std::to_string(uElementId++);
                     ImGui::SameLine();
                     if (ImGui::SmallButton(btnlabel.c_str()) && positionWritable)

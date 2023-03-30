@@ -1,10 +1,13 @@
 ﻿#ifndef PCH_H
 #define PCH_H
 
-#include "framework.h"
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
+#define _USE_MATH_DEFINES
+#include <cmath>
 
 #include <powerbase.h>
-#include <Windows.h>
 #include <intrin.h>
 #include <iostream>
 #include <Psapi.h>
@@ -13,9 +16,6 @@
 #include <thread>
 #include <memory>
 #include <mutex>
-#include <cmath>
 #include <map>
-
-#pragma comment (lib, "powrprof.lib")
 
 #endif //PCH_H
