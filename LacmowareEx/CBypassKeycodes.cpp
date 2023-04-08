@@ -16,5 +16,10 @@ void CBypassKeycodes::fnDraw(unsigned int &uElementId)
     ImGui::Text("Maynard key: %i", *SDK::piMaynardKeycode);
 
     int maintenanceKey = (*SDK::piMaynardKeycode * 3) % 10000;
+    if (maintenanceKey < 1000)
+    {
+        maintenanceKey += 1000;
+    }
+
     ImGui::Text("Maintenance tunnel key: %i", maintenanceKey);
 }
