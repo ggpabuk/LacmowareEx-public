@@ -156,6 +156,9 @@
     <ClInclude Include="breachTeam.h">
       <Filter>Sdk</Filter>
     </ClInclude>
+    <ClInclude Include="CFreeze.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />

@@ -102,6 +102,7 @@
     <ClInclude Include="CBypassPeanut.h" />
     <ClInclude Include="CForceVoice.h" />
     <ClInclude Include="CFovChanger.h" />
+    <ClInclude Include="CFreeze.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerListElement.h" />
     <ClInclude Include="CPlayers.h" />

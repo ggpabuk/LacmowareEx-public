@@ -24,7 +24,7 @@ void CPlayers::fnDraw(unsigned int &uElementId)
             ImGui::PopStyleColor();
 
 #if !_DEBUG
-            if (pElement != SDK::pCOPlayerList) // != localplayer
+            if (pElement != SDK::pCOPlayerList && !pPlayer->m_isDead) // != localplayer
 #endif
             {
                 CVector3 *positionWritable = SDK::getPositionWritable();
@@ -32,25 +32,22 @@ void CPlayers::fnDraw(unsigned int &uElementId)
                 ImGui::SameLine();
                 ImGui::Text("(%.1fm)", positionWritable->distance(&pPlayer->m_position));
 
-                if (!pPlayer->m_isDead)
+                std::string btnlabel = std::string("TP##") + std::to_string(uElementId++);
+                ImGui::SameLine();
+                if (ImGui::SmallButton(btnlabel.c_str()) && positionWritable)
                 {
-                    std::string btnlabel = std::string("TP##") + std::to_string(uElementId++);
-                    ImGui::SameLine();
-                    if (ImGui::SmallButton(btnlabel.c_str()) && positionWritable)
+                    menu::hotkeysMutex.lock();
+
+                    if (!CNoclip::m_pCOInstance->m_bIsEnabled)
                     {
-                        menu::hotkeysMutex.lock();
-
-                        if (!CNoclip::m_pCOInstance->m_bIsEnabled)
-                        {
-                            CNoclip::m_pCOInstance->fnEnable();
-                        }
-
-                        memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));
-
-                        CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
-
-                        menu::hotkeysMutex.unlock();
+                        CNoclip::m_pCOInstance->fnEnable();
                     }
+
+                    memcpy(positionWritable, &pPlayer->m_position, sizeof(CVector3));
+
+                    CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
+
+                    menu::hotkeysMutex.unlock();
                 }
             }
         }
