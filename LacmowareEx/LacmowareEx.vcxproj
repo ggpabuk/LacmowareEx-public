@@ -64,13 +64,14 @@
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>-Wno-pch-date-time -Wno-multichar /clang:-masm=intel /clang:"-includepch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(DISCORD_RPC)win32-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>$(DX9SDK)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DISCORD_RPC)win32-static\lib;$(DXSDK_DIR)Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;powrprof.lib;discord-rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,6 +87,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>-Wno-pch-date-time -Wno-multichar /clang:-masm=intel /clang:"-includepch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(DISCORD_RPC)win32-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -93,8 +95,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>$(DX9SDK)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DISCORD_RPC)win32-static\lib;$(DXSDK_DIR)Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;powrprof.lib;discord-rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -118,6 +120,7 @@
     <ClInclude Include="CMaxShootSpeed.h" />
     <ClInclude Include="CNoBlink.h" />
     <ClInclude Include="CNoclip.h" />
+    <ClInclude Include="CRpc.h" />
     <ClInclude Include="CSettings.h" />
     <ClInclude Include="FiraCode.h" />
     <ClInclude Include="breachType.h" />
@@ -168,6 +171,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
     <ClCompile Include="CPlayers.cpp" />
+    <ClCompile Include="CRpc.cpp" />
     <ClCompile Include="CServerInfo.cpp" />
     <ClCompile Include="CVector3.cpp" />
     <ClCompile Include="Imgui\imgui.cpp" />

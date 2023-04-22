@@ -159,6 +159,9 @@
     <ClInclude Include="CFreeze.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="CRpc.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -267,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="CVector3.cpp">
       <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="CRpc.cpp">
+      <Filter>Features\Fun</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
