@@ -40,17 +40,18 @@ void CRpc::BeginUpdateRpc()
             rpc.partySize = pServerInfo->PlayersCount;
             rpc.partyMax = pServerInfo->MaxPlayers;
 
-            rpc.state = g_breachType[pPlayer->m_breachType];
-
             rpc.largeImageKey = "ingame";
             rpc.largeImageText = "ggpabuk's fan";
+
+            rpc.state = pServerInfo->Breach ?
+                g_breachType[pPlayer->m_breachType] : "CO-OP";
         }
         else
         {
-            rpc.state = "Enjoying loading screen";
-
             rpc.largeImageKey = "chill";
             rpc.largeImageText = "thelifeworm's fan";
+
+            rpc.state = "Enjoying loading screen";
         }
 
         Discord_UpdatePresence(&rpc);
@@ -63,7 +64,7 @@ CRpc::CRpc(CHotkey COHotkey) :
     m_clearRpc = false;
 
     InitRpc();
-    std::thread([&]() { BeginUpdateRpc(); }).detach();
+    std::thread([&]() { BeginUpdateRpc(); }).detach(); // i fucking love __thiscall
 }
 
 void CRpc::fnEnable()
