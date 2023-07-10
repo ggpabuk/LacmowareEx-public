@@ -162,6 +162,9 @@
     <ClInclude Include="CRpc.h">
       <Filter>Features\Fun</Filter>
     </ClInclude>
+    <ClInclude Include="CCameraFix.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -273,6 +276,9 @@
     </ClCompile>
     <ClCompile Include="CRpc.cpp">
       <Filter>Features\Fun</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraFix.cpp">
+      <Filter>Features\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

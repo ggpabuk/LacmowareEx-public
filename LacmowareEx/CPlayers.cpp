@@ -67,9 +67,9 @@ void CPlayers::fnDraw(unsigned int &uElementId)
                 CNoclip::m_pCOInstance->fnEnable();
             }
 
-            positionWritable->m_x = 45.0;
-            positionWritable->m_y = 830.0;
-            positionWritable->m_z = 130.0;
+            positionWritable->m_x = 10.0f;
+            positionWritable->m_y = 806.0f;
+            positionWritable->m_z = 10.0f;
 
             CNoclip::m_pCOInstance->m_COHotkey.m_bHoldToUse = false;
 
