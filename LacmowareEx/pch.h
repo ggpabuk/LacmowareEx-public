@@ -17,6 +17,5 @@
 #include <memory>
 #include <mutex>
 #include <map>
-#include <discord_rpc.h>
 
 #endif //PCH_H

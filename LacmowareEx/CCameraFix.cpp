@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "CCameraFix.h"
-#include "offsets.h"
 #include "patterns.h"
 
 CCameraFix::CCameraFix()
@@ -23,8 +22,8 @@ CCameraFix::CCameraFix()
 void CCameraFix::fnEnable()
 {
     CFeature::fnEnable();
-    *m_pUp = *m_pUpEbx = -90.0f;
-    *m_pDown = *m_pDownEbx = 90.0f;
+    *m_pUp = *m_pUpEbx = -88.0f;
+    *m_pDown = *m_pDownEbx = 88.0f;
 }
 
 void CCameraFix::fnDisable()

@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "menu.h"
-#include "CRpc.h"
 #include "CCameraFix.h"
 
 typedef std::unique_ptr<CFeature> featureUnique_t;
@@ -42,7 +41,6 @@ namespace menu
         g_features.push_back(std::make_unique<CForceVoice>(CONoneHotkey));
         g_features.push_back(std::make_unique<CBypassPeanut>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
-        g_features.push_back(std::make_unique<CRpc>(CONoneHotkey));
 
         g_features.push_back(std::make_unique<CPlayers>());
         g_features.push_back(std::make_unique<CBypassKeycodes>());
