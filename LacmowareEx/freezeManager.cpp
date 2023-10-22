@@ -3,72 +3,114 @@
 
 namespace freezeManager
 {
-    std::map<int *, int> g_intFreezes;
-    std::map<float *, float> g_floatFreezes;
-    BYTE g_fWeaponsFreezeState;
-    std::mutex g_intFreezesMutex;
-    std::mutex g_floatFreezesMutex;
-    std::mutex g_weaponsFreezeMutex{};
+#if FREEZE_DELTA
+    static std::chrono::system_clock::time_point last;
+
+#endif
+
+    std::map<int *, int> intFreezes;
+    std::map<float *, float> floatFreezes;
+    BYTE fWeaponsFreezeState;
+    bool peanutFreeze;
+    bool noblinkFreeze;
+    std::mutex intFreezesMutex;
+    std::mutex floatFreezesMutex;
+    std::mutex weaponsFreezeMutex;
+    std::mutex peanutFreezeMutex;
+    std::mutex noblinkFreezeMutex;
 
     void fnInit()
     {
-        g_intFreezes = std::map<int *, int>();
-        g_floatFreezes = std::map<float *, float>();
-        g_fWeaponsFreezeState = 0;
+        intFreezes = std::map<int *, int>();
+        floatFreezes = std::map<float *, float>();
+        fWeaponsFreezeState = 0;
+        peanutFreeze = false;
 
         std::thread(fnFreezeAll).detach();
     }
 
     void fnFreezeAll()
     {
+#if FREEZE_DELTA
+        std::chrono::system_clock::time_point now;
+        std::chrono::duration<double> deltatime;
+#endif
+
         while (true)
         {
+#if FREEZE_DELTA
+            now = std::chrono::system_clock::now();
+            deltatime = now - last;
+            last = now;
+
+            printf("Freeze manager delta time: %.3f\n", deltatime);
+#endif
+
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-            if (g_intFreezesMutex.try_lock())
+            if (intFreezesMutex.try_lock())
             {
-                for (const auto &[ptr, value] : g_intFreezes)
+                for (const auto &[ptr, value] : intFreezes)
                 {
                     if (!ptr) continue;
                     *ptr = value;
                 }
 
-                g_intFreezesMutex.unlock();
+                intFreezesMutex.unlock();
             }
 
-
-            if (g_floatFreezesMutex.try_lock())
+            if (floatFreezesMutex.try_lock())
             {
-                for (const auto &[ptr, value] : g_floatFreezes)
+                for (const auto &[ptr, value] : floatFreezes)
                 {
                     if (!ptr) continue;
                     *ptr = value;
                 }
 
-                g_floatFreezesMutex.unlock();
+                floatFreezesMutex.unlock();
             }
-          
-            if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer) continue;
 
-            g_weaponsFreezeMutex.lock();
-            for (auto &gun : (**SDK::pppCOGunContainer)->Guns)
+            if (peanutFreeze && SDK::pCOPlayerList && SDK::pCOPlayerList->fnIsPlayerValid() &&
+                (*SDK::pCOPlayerList->m_COplayer)->m_breachType == 5 && peanutFreezeMutex.try_lock())
             {
-                if (g_fWeaponsFreezeState & Ammo)
+                auto setTimer = [&](CPlayerListElement *pElement)
                 {
-                    gun.CurrentAmmo = INT_MAX;
-                }
+                    CPlayer *pPlayer = *pElement->m_COplayer;
+                    pPlayer->m_blinkTimer = -11; // ( -16 + (-6) ) / 2
+                };
 
-                if (g_fWeaponsFreezeState & ShootSpeed)
-                {
-                    gun.ShootSpeed = FLT_MIN;
-                }
+                CPlayerListElement::foreach(setTimer);
 
-                if (g_fWeaponsFreezeState & Recoil)
-                {
-                    gun.RecoilForce = 0;
-                }
+                peanutFreezeMutex.unlock();
             }
-            g_weaponsFreezeMutex.unlock();
+            else if (noblinkFreeze && noblinkFreezeMutex.try_lock())
+            {
+                SDK::pCOPlayerStats->BlinkTimer = 500.0;
+                noblinkFreezeMutex.unlock();
+            }
+
+            if (*SDK::pppCOGunContainer && **SDK::pppCOGunContainer)
+            {
+                weaponsFreezeMutex.lock();
+                for (auto &gun : (**SDK::pppCOGunContainer)->Guns)
+                {
+                    if (fWeaponsFreezeState & Ammo)
+                    {
+                        gun.CurrentAmmo = INT_MAX;
+                    }
+
+                    if (fWeaponsFreezeState & ShootSpeed)
+                    {
+                        gun.ShootSpeed = FLT_MIN;
+                    }
+
+                    if (fWeaponsFreezeState & Recoil)
+                    {
+                        gun.RecoilForce = 0;
+                    }
+                }
+                weaponsFreezeMutex.unlock();
+            }
         }
     }
 }

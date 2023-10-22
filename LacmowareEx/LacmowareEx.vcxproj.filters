@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
-    <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="memory.h">
       <Filter>Utils</Filter>
@@ -91,7 +90,7 @@
     <ClInclude Include="CPlayerListElement.h">
       <Filter>Sdk</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="CVector3.h">
       <Filter>Sdk</Filter>
     </ClInclude>
     <ClInclude Include="sdk.h">
@@ -143,6 +142,27 @@
       <Filter>Sdk</Filter>
     </ClInclude>
     <ClInclude Include="CFovChanger.h">
+      <Filter>Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="CBypassPeanut.h">
+      <Filter>Features\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="breachType.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayers.h">
+      <Filter>Features\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="breachTeam.h">
+      <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CFreeze.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CRpc.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraFix.h">
       <Filter>Features\Visuals</Filter>
     </ClInclude>
   </ItemGroup>
@@ -203,9 +223,6 @@
     <ClCompile Include="CPlayerListElement.cpp">
       <Filter>Sdk</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Sdk</Filter>
-    </ClCompile>
     <ClCompile Include="sdk.cpp">
       <Filter>Sdk</Filter>
     </ClCompile>
@@ -239,13 +256,28 @@
     <ClCompile Include="menuRenderer.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
-    <ClCompile Include="CSettings.cpp">
-      <Filter>Sdk</Filter>
-    </ClCompile>
     <ClCompile Include="CServerInfo.cpp">
       <Filter>Sdk</Filter>
     </ClCompile>
     <ClCompile Include="CFovChanger.cpp">
+      <Filter>Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="CBypassPeanut.cpp">
+      <Filter>Features\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayers.cpp">
+      <Filter>Features\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="CVector3.cpp">
+      <Filter>Sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="CRpc.cpp">
+      <Filter>Features\Fun</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraFix.cpp">
       <Filter>Features\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
@@ -282,6 +314,9 @@
     </Filter>
     <Filter Include="Menu\Fonts">
       <UniqueIdentifier>{161015b3-b0fa-4fec-a56a-d41843b2911c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Players">
+      <UniqueIdentifier>{089b5f6b-92b9-4c15-9b11-bf37ec7aab58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

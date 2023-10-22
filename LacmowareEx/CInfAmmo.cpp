@@ -15,23 +15,23 @@ void CInfAmmo::fnEnable()
     }
 
     CFeature::fnEnable();
-    freezeManager::g_fWeaponsFreezeState |= Ammo;
+    freezeManager::fWeaponsFreezeState |= Ammo;
 }
 
 void CInfAmmo::fnDisable()
 {
     CFeature::fnDisable();
-    freezeManager::g_fWeaponsFreezeState &= ~Ammo;
+    freezeManager::fWeaponsFreezeState &= ~Ammo;
 
     if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
 
-    freezeManager::g_weaponsFreezeMutex.lock();
+    freezeManager::weaponsFreezeMutex.lock();
     for (auto &gun : (**SDK::pppCOGunContainer)->Guns)
     {
         gun.CurrentAmmo = gun.MaxAmmo;
     }
-    freezeManager::g_weaponsFreezeMutex.unlock();
+    freezeManager::weaponsFreezeMutex.unlock();
 }

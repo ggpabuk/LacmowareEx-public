@@ -22,24 +22,24 @@ void CMaxShootSpeed::fnEnable()
         m_aOldShootSpeed[i] = gun.ShootSpeed;
     }
 
-    freezeManager::g_fWeaponsFreezeState |= ShootSpeed;
+    freezeManager::fWeaponsFreezeState |= ShootSpeed;
 }
 
 void CMaxShootSpeed::fnDisable()
 {
     CFeature::fnDisable();
-    freezeManager::g_fWeaponsFreezeState &= ~ShootSpeed;
+    freezeManager::fWeaponsFreezeState &= ~ShootSpeed;
 
     if (!*SDK::pppCOGunContainer || !**SDK::pppCOGunContainer)
     {
         return;
     }
 
-    freezeManager::g_weaponsFreezeMutex.lock();
+    freezeManager::weaponsFreezeMutex.lock();
     for (unsigned int i = 0; i < gunsCount; ++i)
     {
         CGun &gun = (**SDK::pppCOGunContainer)->Guns[i];
         gun.ShootSpeed = m_aOldShootSpeed[i];
     }
-    freezeManager::g_weaponsFreezeMutex.unlock();
+    freezeManager::weaponsFreezeMutex.unlock();
 }

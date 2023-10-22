@@ -10,14 +10,14 @@ CInfStamina::CInfStamina(CHotkey COHotkey) :
 void CInfStamina::fnEnable()
 {
     CFeature::fnEnable();
-    freezeManager::g_floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->Stamina, 99.0f));
+    freezeManager::floatFreezes.insert(std::pair(&SDK::pCOPlayerStats->Stamina, 99.0f));
 }
 
 void CInfStamina::fnDisable()
 {
     CFeature::fnDisable();
 
-    freezeManager::g_floatFreezesMutex.lock();
-    freezeManager::g_floatFreezes.erase(freezeManager::g_floatFreezes.find(&SDK::pCOPlayerStats->Stamina));
-    freezeManager::g_floatFreezesMutex.unlock();
+    freezeManager::floatFreezesMutex.lock();
+    freezeManager::floatFreezes.erase(freezeManager::floatFreezes.find(&SDK::pCOPlayerStats->Stamina));
+    freezeManager::floatFreezesMutex.unlock();
 }

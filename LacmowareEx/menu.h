@@ -20,6 +20,8 @@
 #include "FiraCode.h"
 #include "sdk.h"
 #include "CFovChanger.h"
+#include "CBypassPeanut.h"
+#include "CPlayers.h"
 
 #include <Windows.h>
 
@@ -27,6 +29,8 @@ namespace menu
 {
     constexpr int iWidth = 600;
     constexpr int iHeight = 400;
+
+    extern std::mutex hotkeysMutex;
 
     void fnInit(HWND hWnd);
     void fnSetTheme();

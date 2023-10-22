@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "menu.h"
+#include "CCameraFix.h"
 
 typedef std::unique_ptr<CFeature> featureUnique_t;
 
@@ -8,6 +9,8 @@ namespace menu
     static std::vector<featureUnique_t> g_features{};
     static HWND g_hWnd;
     static ImFont *g_pFont;
+
+    std::mutex hotkeysMutex;
 
     void fnInit(HWND hWnd)
     {
@@ -36,9 +39,12 @@ namespace menu
         g_features.push_back(std::make_unique<CInfStamina>(CONoneHotkey));
         g_features.push_back(std::make_unique<CSpeedhack>(CONoneHotkey));
         g_features.push_back(std::make_unique<CForceVoice>(CONoneHotkey));
-
+        g_features.push_back(std::make_unique<CBypassPeanut>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
+
+        g_features.push_back(std::make_unique<CPlayers>());
         g_features.push_back(std::make_unique<CBypassKeycodes>());
+        g_features.push_back(std::make_unique<CCameraFix>());
 
         std::thread(fnCatchHotkeys).detach();
     }
@@ -194,6 +200,12 @@ namespace menu
         {
             s_iCurrentTab = Tab::Fun;
         }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Players", tabsButtonSize))
+        {
+            s_iCurrentTab = Tab::Players;
+        }
         
         bool bFirst = true;
         for (const auto &feature : g_features)
@@ -224,6 +236,7 @@ namespace menu
         while (true)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            hotkeysMutex.lock();
 
             for (const auto &feature : g_features)
             {
@@ -258,6 +271,8 @@ namespace menu
                     feature->fnToggle();
                 }
             }
+
+            hotkeysMutex.unlock();
         }
     }
 }

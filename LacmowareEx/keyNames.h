@@ -1,6 +1,6 @@
 #pragma once
 
-const char *const g_aKeyNames[] = 
+static const char *const g_keyNames[] = 
 {
     "None",
     "Mouse 1",

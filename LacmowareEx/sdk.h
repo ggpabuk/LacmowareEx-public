@@ -7,7 +7,7 @@
 #include "CScpStats.h"
 #include "CServerInfo.h"
 #include "CPlayerListElement.h"
-#include "Vector3.h"
+#include "CVector3.h"
 #include "memory.h"
 #include "offsets.h"
 #include "CSettings.h"
@@ -27,4 +27,5 @@ namespace SDK
     extern CGunsContainer ***pppCOGunContainer;
 
     void fnInit();
+    CVector3 *getPositionWritable();
 }
