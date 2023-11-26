@@ -64,15 +64,15 @@
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>-Wno-pch-date-time -Wno-multichar /clang:-masm=intel /clang:"-includepch.h" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(vcpkg)\installed\x86-windows-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(vcpkg)\installed\x86-windows-static\lib;$(DXSDK_DIR)Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;powrprof.lib;minhook.x32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>-Wno-pch-date-time -Wno-multichar /clang:-masm=intel /clang:"-includepch.h" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(vcpkg)\installed\x86-windows-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
@@ -97,8 +97,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(vcpkg)\installed\x86-windows-static\lib;$(DXSDK_DIR)Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;powrprof.lib;minhook.x32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -124,7 +124,9 @@
     <ClInclude Include="CMaxShootSpeed.h" />
     <ClInclude Include="CNoBlink.h" />
     <ClInclude Include="CNoclip.h" />
+    <ClInclude Include="CSendHook.h" />
     <ClInclude Include="CSettings.h" />
+    <ClInclude Include="CSoundSpam.h" />
     <ClInclude Include="FiraCode.h" />
     <ClInclude Include="breachType.h" />
     <ClInclude Include="Imgui\imconfig.h" />
@@ -177,7 +179,9 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
     <ClCompile Include="CPlayers.cpp" />
+    <ClCompile Include="CSendHook.cpp" />
     <ClCompile Include="CServerInfo.cpp" />
+    <ClCompile Include="CSoundSpam.cpp" />
     <ClCompile Include="CVector3.cpp" />
     <ClCompile Include="Imgui\imgui.cpp" />
     <ClCompile Include="Imgui\imgui_demo.cpp" />

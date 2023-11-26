@@ -18,5 +18,9 @@
 #include <mutex>
 #include <map>
 #include <format>
+#include <MinHook.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <sstream>
 
 #endif //PCH_H

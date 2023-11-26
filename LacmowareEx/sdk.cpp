@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "sdk.h"
+#include "CSendHook.h"
 
 namespace SDK
 {
@@ -14,6 +15,18 @@ namespace SDK
     CIntercom ***pppCOIntercom;
     CServerInfo ***pppCOServerInfo;
     CGunsContainer ***pppCOGunContainer;
+
+    static void initHooks()
+    {
+        MH_STATUS status = MH_Initialize();
+        if (status != MH_OK)
+        {
+            MessageBoxA(0, std::format("MH_Initialize failed with code {}", (int)status).c_str(), "", 0);
+            exit(0);
+        }
+
+        CSendHook::enable();
+    }
 
     void fnInit()
     {
@@ -31,6 +44,8 @@ namespace SDK
         pppCOIntercom     = reinterpret_cast<CIntercom ***>(base + offsets::intercom);
         pppCOServerInfo   = reinterpret_cast<CServerInfo ***>(base + offsets::serverInfo);
         pppCOGunContainer = reinterpret_cast<CGunsContainer ***>(base + offsets::gunContainer);
+
+        initHooks();
     }
 
     CVector3 *getPositionWritable()

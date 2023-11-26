@@ -168,6 +168,12 @@
     <ClInclude Include="MoveType.h">
       <Filter>Sdk</Filter>
     </ClInclude>
+    <ClInclude Include="CSendHook.h">
+      <Filter>Sdk\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundSpam.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -283,6 +289,12 @@
     <ClCompile Include="CFakeMove.cpp">
       <Filter>Features\Fun</Filter>
     </ClCompile>
+    <ClCompile Include="CSendHook.cpp">
+      <Filter>Sdk\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundSpam.cpp">
+      <Filter>Features\Fun</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -320,6 +332,9 @@
     </Filter>
     <Filter Include="Features\Players">
       <UniqueIdentifier>{089b5f6b-92b9-4c15-9b11-bf37ec7aab58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sdk\Hooks">
+      <UniqueIdentifier>{720df97c-f715-4cad-8e13-dfb27b5a09e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
