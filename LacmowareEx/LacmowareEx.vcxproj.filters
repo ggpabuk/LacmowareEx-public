@@ -159,11 +159,14 @@
     <ClInclude Include="CFreeze.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="CRpc.h">
-      <Filter>Features\Fun</Filter>
-    </ClInclude>
     <ClInclude Include="CCameraFix.h">
       <Filter>Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="CFakeMove.h">
+      <Filter>Features\Fun</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveType.h">
+      <Filter>Sdk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -274,11 +277,11 @@
     <ClCompile Include="CVector3.cpp">
       <Filter>Sdk</Filter>
     </ClCompile>
-    <ClCompile Include="CRpc.cpp">
-      <Filter>Features\Fun</Filter>
-    </ClCompile>
     <ClCompile Include="CCameraFix.cpp">
       <Filter>Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="CFakeMove.cpp">
+      <Filter>Features\Fun</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

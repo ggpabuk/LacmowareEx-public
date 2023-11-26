@@ -105,6 +105,7 @@
     <ClInclude Include="breachTeam.h" />
     <ClInclude Include="CBypassPeanut.h" />
     <ClInclude Include="CCameraFix.h" />
+    <ClInclude Include="CFakeMove.h" />
     <ClInclude Include="CForceVoice.h" />
     <ClInclude Include="CFovChanger.h" />
     <ClInclude Include="CFreeze.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="keyNames.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="menuRenderer.h" />
+    <ClInclude Include="MoveType.h" />
     <ClInclude Include="processorCpuid.h" />
     <ClInclude Include="CScpStats.h" />
     <ClInclude Include="CServerInfo.h" />
@@ -162,6 +164,7 @@
     <ClCompile Include="CBypassKeycodes.cpp" />
     <ClCompile Include="CBypassPeanut.cpp" />
     <ClCompile Include="CCameraFix.cpp" />
+    <ClCompile Include="CFakeMove.cpp" />
     <ClCompile Include="CFeature.cpp" />
     <ClCompile Include="CForceVoice.cpp" />
     <ClCompile Include="CFovChanger.cpp" />
