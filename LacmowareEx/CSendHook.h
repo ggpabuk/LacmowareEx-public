@@ -120,7 +120,7 @@ enum class PacketId : char
 };
 
 typedef int (WINAPI *pSendTo_t)(SOCKET s, const char *buf, int len, int flags, const sockaddr *to, int tolen);
-typedef std::function<void(char *, int)> Modifer_t;
+typedef std::function<void(char **, int *)> Modifer_t;
 
 class CSendHook
 {

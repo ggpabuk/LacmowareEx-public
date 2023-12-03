@@ -13,6 +13,8 @@ private:
 public:
     CFakeMove();
 
+    bool m_jitterEnabled;
+    
     void fnDraw(unsigned int &uElementId) override;
     void fnEnable() override;
     void fnDisable() override;

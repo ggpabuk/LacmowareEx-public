@@ -34,10 +34,10 @@ int __stdcall CSendHook::hkSendto(SOCKET s, const char *buf, int len, int flags,
     {
         for (auto &fnModifier : it->second)
         {
-            fnModifier(patchedbuf, len);
+            fnModifier(&patchedbuf, &len);
         }
     }
-    
+
     int result = m_oSendto(s, patchedbuf, len, flags, to, tolen);
 
     delete[] patchedbuf;

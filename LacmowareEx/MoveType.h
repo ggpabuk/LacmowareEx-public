@@ -1,8 +1,5 @@
 #pragma once
 
-#define MOVETYPE_FIRST MoveType::PLAYER_SITTING_IDLING
-#define MOVETYPE_LAST MoveType::PLAYER_FROM_WALK
-
 enum class MoveType : int
 {
     PLAYER_SITTING_IDLING = 5,
