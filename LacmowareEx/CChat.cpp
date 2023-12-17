@@ -2,12 +2,13 @@
 #include "CChat.h"
 #include "CSendHook.h"
 #include "CRecvHook.h"
+#include "CPlayerListElement.h"
 
 #define CHAT_SIG "mclilwagner"
 
 std::deque<CChat::Message> CChat::m_lastMessages{};
 std::mutex CChat::m_mutex{};
-int CChat::m_maxMessages = 10;
+int CChat::m_maxMessages = 13;
 
 CChat::CChat()
 	: CFeature("Chat", CHotkey(), Tab::Chat)
@@ -48,8 +49,19 @@ void CChat::fnDraw(unsigned int &uElementId)
 	{
 		if (message.pid)
 		{
+			std::string name;
+			CPlayerListElement::foreach(
+				[&](CPlayerListElement *el)
+				{
+					CPlayer *player = *el->m_COplayer;
+					if (player->m_id == message.pid)
+					{
+						name = player->getName();
+					}
+				});
+
 			ImGui::Text(std::format("{} > {}", message.pid == CSendHook::m_lastPlayerId ?
-				"You" : std::to_string(message.pid), message.text).c_str());
+				"You" : std::format("({}) {}", message.pid, name), message.text).c_str());
 		}
 		else
 		{

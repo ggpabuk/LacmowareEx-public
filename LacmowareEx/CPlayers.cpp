@@ -20,10 +20,10 @@ void CPlayers::fnDraw(unsigned int &uElementId)
         if (!s_hideDead || !pPlayer->m_isDead)
         {
             ImGui::PushStyleColor(ImGuiCol_Text, pPlayer->getRoleColor());
-            ImGui::Text("[%d] %s", pPlayer->m_id, g_breachType[pPlayer->m_breachType]);
+            ImGui::Text("[%d] %s: %s", pPlayer->m_id, pPlayer->getName().c_str(), g_breachType[pPlayer->m_breachType]);
             ImGui::PopStyleColor();
 
-#if !_DEBUG
+#ifndef _DEBUG
             if (pElement != SDK::pCOPlayerList && !pPlayer->m_isDead) // != localplayer
 #endif
             {

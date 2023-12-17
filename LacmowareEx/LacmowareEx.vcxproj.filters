@@ -171,9 +171,6 @@
     <ClInclude Include="CSendHook.h">
       <Filter>Sdk\Hooks</Filter>
     </ClInclude>
-    <ClInclude Include="CChat.h">
-      <Filter>Features\Fun</Filter>
-    </ClInclude>
     <ClInclude Include="CRecvHook.h">
       <Filter>Sdk\Hooks</Filter>
     </ClInclude>
@@ -182,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="rm.h">
       <Filter>Menu\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="CChat.h">
+      <Filter>Features\Chat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -301,11 +301,11 @@
     <ClCompile Include="CSendHook.cpp">
       <Filter>Sdk\Hooks</Filter>
     </ClCompile>
-    <ClCompile Include="CChat.cpp">
-      <Filter>Features\Fun</Filter>
-    </ClCompile>
     <ClCompile Include="CRecvHook.cpp">
       <Filter>Sdk\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="CChat.cpp">
+      <Filter>Features\Chat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +347,9 @@
     </Filter>
     <Filter Include="Sdk\Hooks">
       <UniqueIdentifier>{720df97c-f715-4cad-8e13-dfb27b5a09e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Chat">
+      <UniqueIdentifier>{3aca6bfe-e849-41b2-95ab-a72e9dee7ad3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

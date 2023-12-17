@@ -85,6 +85,8 @@ namespace memory
         for (const auto &offset : offsets)
         {
             address = *(DWORD *)address;
+            if (!address) return 0;
+
             address += offset;
         }
 

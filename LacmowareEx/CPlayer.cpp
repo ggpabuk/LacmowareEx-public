@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CPlayer.h"
+#include "memory.h"
 
 breachTeam CPlayer::getTeam()
 {
@@ -62,4 +63,15 @@ ImU32 CPlayer::getRoleColor()
             return IM_COL32(100, 100, 100, 255);
         }
     }
+}
+
+std::string CPlayer::getName()
+{
+    auto szName = (const char *)memory::fnFindDMAAddy((DWORD)&m_name, { 0x4, 0x0 });
+    if (!szName)
+    {
+        szName = "";
+    }
+
+    return std::string(szName);
 }
