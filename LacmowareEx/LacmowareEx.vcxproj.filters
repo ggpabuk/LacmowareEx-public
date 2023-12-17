@@ -171,7 +171,7 @@
     <ClInclude Include="CSendHook.h">
       <Filter>Sdk\Hooks</Filter>
     </ClInclude>
-    <ClInclude Include="CSoundSpam.h">
+    <ClInclude Include="CChat.h">
       <Filter>Features\Fun</Filter>
     </ClInclude>
     <ClInclude Include="CRecvHook.h">
@@ -179,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="Network.h">
       <Filter>Sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="rm.h">
+      <Filter>Menu\Fonts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -298,7 +301,7 @@
     <ClCompile Include="CSendHook.cpp">
       <Filter>Sdk\Hooks</Filter>
     </ClCompile>
-    <ClCompile Include="CSoundSpam.cpp">
+    <ClCompile Include="CChat.cpp">
       <Filter>Features\Fun</Filter>
     </ClCompile>
     <ClCompile Include="CRecvHook.cpp">

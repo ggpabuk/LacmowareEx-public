@@ -2,7 +2,8 @@
 #include "menu.h"
 #include "CCameraFix.h"
 #include "CFakeMove.h"
-#include "CSoundSpam.h"
+#include "CChat.h"
+#include "rm.h"
 
 typedef std::unique_ptr<CFeature> featureUnique_t;
 
@@ -44,7 +45,7 @@ namespace menu
         g_features.push_back(std::make_unique<CBypassPeanut>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFakeMove>());
-        g_features.push_back(std::make_unique<CSoundSpam>());
+        g_features.push_back(std::make_unique<CChat>());
 
         g_features.push_back(std::make_unique<CPlayers>());
         g_features.push_back(std::make_unique<CBypassKeycodes>());
@@ -55,7 +56,15 @@ namespace menu
 
     void fnSetTheme()
     {
-        g_pFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void *)FiraCode, FiraCode_len, 16);
+        const ImGuiIO &io = ImGui::GetIO();
+        io.Fonts->Clear();
+        g_pFont = io.Fonts->AddFontFromMemoryTTF((void *)FiraCode, FiraCode_len, 16,
+            0, io.Fonts->GetGlyphRangesCyrillic());
+
+        /*
+        g_pFont = io.Fonts->AddFontFromMemoryCompressedBase85TTF(rm_compressed_data_base85, 16,
+            0, io.Fonts->GetGlyphRangesCyrillic());
+        */
 
         /*
         * https://github.com/ocornut/imgui/issues/707#issuecomment-917151020
@@ -209,6 +218,12 @@ namespace menu
         if (ImGui::Button("Players", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Players;
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Chat", tabsButtonSize))
+        {
+            s_iCurrentTab = Tab::Chat;
         }
         
         bool bFirst = true;

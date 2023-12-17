@@ -17,7 +17,7 @@ void fnInit()
 
 #ifdef _DEBUG
     fnCreateConsole();
-    SetConsoleTitle("LacmowareEx debug");
+    SetConsoleTitleA("LacmowareEx debug");
 #endif // _DEBUG
 
     SDK::fnInit();

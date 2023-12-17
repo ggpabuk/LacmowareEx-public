@@ -23,5 +23,7 @@
 #include <ws2tcpip.h>
 #include <sstream>
 #include <random>
+#include <stack>
+#include <queue>
 
 #endif //PCH_H

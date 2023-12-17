@@ -6,5 +6,6 @@ enum Tab : BYTE
     Visuals,
     Movement,
     Fun,
-    Players
+    Players,
+    Chat,
 };
