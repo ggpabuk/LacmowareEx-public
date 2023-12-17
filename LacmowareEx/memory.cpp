@@ -135,4 +135,12 @@ namespace memory
         memcpy(restoreBuf, address, length);
         memcpy(address, srcBuf, length);
     }
+
+    void xorString(char *data, const char *key)
+    {
+        for (size_t i = 0; i < strlen(data); ++i)
+        {
+            data[i] ^= i ^ key[i % strlen(key)];
+        }
+    }
 };

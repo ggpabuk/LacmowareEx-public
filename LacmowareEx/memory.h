@@ -13,4 +13,5 @@ namespace memory
     void fnReplaceWithNop(DWORD *address, int length);
     void fnReplaceWithNop(DWORD *address, BYTE *restoreBuf, int length);
     void fnReplaceWithBuffer(DWORD *address, BYTE *restoreBuf, BYTE *srcBuf, int length);
+    void xorString(char *data, const char *key);
 }

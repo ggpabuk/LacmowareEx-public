@@ -12,9 +12,12 @@ private:
         std::string text;
     };
 
-    static std::deque<Message> m_lastMessages;
-    static std::mutex m_mutex;
-    static int m_maxMessages;
+    std::deque<Message> m_lastMessages;
+    std::mutex m_mutex;
+    int m_maxMessages;
+    bool m_ignorePing;
+
+    void sendMessage(const char *text);
 public:
     CChat();
 

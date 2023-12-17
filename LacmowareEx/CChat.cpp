@@ -7,28 +7,45 @@
 #define CHAT_SIG "mclilwagner"
 #define CHAT_XOR_KEY "nazi_huesos_zelenskij_swinger"
 
-std::deque<CChat::Message> CChat::m_lastMessages{};
-std::mutex CChat::m_mutex{};
-int CChat::m_maxMessages = 13;
-
-void xorString(char *data, const char *key)
+std::vector<std::string> split(const std::string &s, char delim)
 {
-	for (size_t i = 0; i < strlen(data); ++i)
+	std::vector<std::string> result;
+	std::stringstream ss(s);
+	std::string item;
+
+	while (getline(ss, item, delim))
 	{
-		data[i] ^= i ^ key[i % strlen(key)];
+		result.push_back(item);
 	}
+
+	return result;
+}
+
+void CChat::sendMessage(const char *text)
+{
+	int buflen = 2 + strlen(CHAT_SIG) + strlen(text) + 1;
+	char *buf = new char[buflen] { (char)Network::M_VOICE, CSendHook::m_lastPlayerId };
+	memcpy(buf + 2, CHAT_SIG, strlen(CHAT_SIG));
+	char *buftext = buf + 2 + strlen(CHAT_SIG);
+	strcpy(buftext, text);
+	memory::xorString(buftext, CHAT_XOR_KEY);
+	CSendHook::m_oSendto(CSendHook::m_lastSocket, buf, buflen, 0, CSendHook::m_lastTo, CSendHook::m_lastTolen);
+	delete[] buf;
 }
 
 CChat::CChat()
 	: CFeature("Chat", CHotkey(), Tab::Chat)
 {
+	m_maxMessages = 13;
+	m_ignorePing = true;
+
 	for (int i = 0; i < m_maxMessages; ++i)
 	{
 		m_lastMessages.push_back(Message{ .pid = 0 });
 	}
 
 	CRecvHook::addPacketModifier(Network::M_VOICE,
-		[](char *buf, int len)
+		[this](char *buf, int len)
 		{
 			int datalen = len - 3;
 			char *data = new char[datalen];
@@ -37,7 +54,7 @@ CChat::CChat()
 			if (!memcmp(data, CHAT_SIG, strlen(CHAT_SIG)) && data[datalen - 1] == '\0')
 			{
 				char *text = data + strlen(CHAT_SIG);
-				xorString(text, CHAT_XOR_KEY);
+				memory::xorString(text, CHAT_XOR_KEY);
 				Message message{ .pid = buf[1], .text = text };
 
 				CPlayerListElement::foreach(
@@ -50,6 +67,21 @@ CChat::CChat()
 						}
 					});
 
+				if (message.text.starts_with('/'))
+				{
+					std::vector<std::string> args = split(message.text.substr(1), ' ');
+					if (!args[0].compare("ping") && message.pid != CSendHook::m_lastPlayerId && !m_ignorePing)
+					{
+						sendMessage(std::format("/pong {}", message.pid).c_str());
+					}
+					else if (!args[0].compare("pong") && args.size() >= 2 && stoi(args[1]) == CSendHook::m_lastPlayerId)
+					{
+						printf("%i ponged!", message.pid);
+					}
+
+					return;
+				}
+		
 				m_mutex.lock();
 				m_lastMessages.push_back(message);
 				if (m_lastMessages.size() > m_maxMessages)
@@ -89,15 +121,11 @@ void CChat::fnDraw(unsigned int &uElementId)
 	if ((ImGui::Button(std::format("Send##{}", uElementId++).c_str()) || enterPressed) &&
 		s_text[0] != '\0')
 	{
-		int buflen = 2 + strlen(CHAT_SIG) + strlen(s_text) + 1;
-		char *buf = new char[buflen] { (char)Network::M_VOICE, CSendHook::m_lastPlayerId };
-		memcpy(buf + 2, CHAT_SIG, strlen(CHAT_SIG));
-		xorString(s_text, CHAT_XOR_KEY);
-		strcpy(buf + 2 + strlen(CHAT_SIG), s_text);
-
-		CSendHook::m_oSendto(CSendHook::m_lastSocket, buf, buflen, 0, CSendHook::m_lastTo, CSendHook::m_lastTolen);
-		delete[] buf;
-
+		m_ignorePing = false;
+		sendMessage(s_text);
+		sendMessage("/ping");
 		s_text[0] = '\0';
 	}
+
+	ImGui::Checkbox(std::format("Ignore ping##{}", uElementId++).c_str(), &m_ignorePing);
 }
