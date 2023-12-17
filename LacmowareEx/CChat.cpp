@@ -118,6 +118,12 @@ void CChat::fnDraw(unsigned int &uElementId)
 	static char s_text[1024]{};
 	bool enterPressed = ImGui::InputText(std::format("##{}", uElementId++).c_str(), s_text, sizeof s_text, ImGuiInputTextFlags_EnterReturnsTrue);
 	
+	if (ImGui::IsItemHovered() || (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) &&
+		!ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0)))
+	{
+		ImGui::SetKeyboardFocusHere(-1);
+	}
+
 	ImGui::SameLine();
 	if ((ImGui::Button(std::format("Send##{}", uElementId++).c_str()) || enterPressed) &&
 		s_text[0] != '\0')
