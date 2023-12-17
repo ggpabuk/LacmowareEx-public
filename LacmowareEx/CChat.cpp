@@ -7,7 +7,7 @@
 
 std::deque<CChat::Message> CChat::m_lastMessages{};
 std::mutex CChat::m_mutex{};
-int CChat::m_maxMessages = 7;
+int CChat::m_maxMessages = 10;
 
 CChat::CChat()
 	: CFeature("Chat", CHotkey(), Tab::Chat)
