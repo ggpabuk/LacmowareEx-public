@@ -8,6 +8,7 @@ private:
     struct Message
     {
         int pid;
+        std::string pname;
         std::string text;
     };
 
