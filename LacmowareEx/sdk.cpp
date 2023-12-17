@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "sdk.h"
 #include "CSendHook.h"
+#include "CRecvHook.h"
 
 namespace SDK
 {
@@ -26,6 +27,7 @@ namespace SDK
         }
 
         CSendHook::enable();
+        CRecvHook::enable();
     }
 
     void fnInit()

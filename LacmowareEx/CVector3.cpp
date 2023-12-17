@@ -14,6 +14,8 @@ CVector3::CVector3(float x, float y, float z)
 
 float CVector3::distance(CVector3 *vec1, CVector3 *vec2)
 {
+    if (!vec1 || !vec2) return 0.0f;
+
     return std::sqrt(
         std::pow((vec2->m_x - vec1->m_x), 2) +
         std::pow((vec2->m_y - vec1->m_y), 2) +

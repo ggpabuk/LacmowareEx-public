@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CSendHook.h"
 
-std::map<PacketId, std::vector<Modifer_t>> CSendHook::m_packetModifiers;
+std::map<Network, std::vector<Modifer_t>> CSendHook::m_packetModifiers;
 char CSendHook::m_lastPlayerId;
 SOCKET CSendHook::m_lastSocket;
 const sockaddr *CSendHook::m_lastTo;
@@ -10,7 +10,7 @@ pSendTo_t CSendHook::m_oSendto;
 
 int __stdcall CSendHook::hkSendto(SOCKET s, const char *buf, int len, int flags, const sockaddr *to, int tolen)
 {
-    if (buf[0] == (char)PacketId::M_UPDATE) m_lastPlayerId = buf[1];
+    if (buf[0] == (char)Network::M_UPDATE) m_lastPlayerId = buf[1];
 
     m_lastSocket = s;
     m_lastTo = to;
@@ -18,23 +18,14 @@ int __stdcall CSendHook::hkSendto(SOCKET s, const char *buf, int len, int flags,
 
     char *patchedbuf = new char[len];
     memcpy(patchedbuf, buf, len);
-    auto pPacketId = reinterpret_cast<PacketId *>(patchedbuf);
-
-    /*
-    for (int i = 0; i < len; ++i)
-    {
-        printf("%02X ", (int)((unsigned char *)patchedbuf)[i]);
-    }
-
-    printf("\n");
-    */
+    auto pPacketId = reinterpret_cast<Network *>(patchedbuf);
 
     auto it = m_packetModifiers.find(*pPacketId);
     if (it != m_packetModifiers.end())
     {
-        for (auto &fnModifier : it->second)
+        for (auto &modifier : it->second)
         {
-            fnModifier(&patchedbuf, &len);
+            modifier(patchedbuf, len);
         }
     }
 
@@ -55,7 +46,7 @@ void CSendHook::disable()
     MH_DisableHook((LPVOID)::sendto);
 }
 
-void CSendHook::addPacketModifier(PacketId packetId, Modifer_t modifierFunction)
+void CSendHook::addPacketModifier(Network packetId, Modifer_t modifierFunction)
 {
     m_packetModifiers[packetId].push_back(modifierFunction);
 }

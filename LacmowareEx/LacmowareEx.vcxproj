@@ -124,6 +124,7 @@
     <ClInclude Include="CMaxShootSpeed.h" />
     <ClInclude Include="CNoBlink.h" />
     <ClInclude Include="CNoclip.h" />
+    <ClInclude Include="CRecvHook.h" />
     <ClInclude Include="CSendHook.h" />
     <ClInclude Include="CSettings.h" />
     <ClInclude Include="CSoundSpam.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="menuRenderer.h" />
     <ClInclude Include="MoveType.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="processorCpuid.h" />
     <ClInclude Include="CScpStats.h" />
     <ClInclude Include="CServerInfo.h" />
@@ -179,6 +181,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerListElement.cpp" />
     <ClCompile Include="CPlayers.cpp" />
+    <ClCompile Include="CRecvHook.cpp" />
     <ClCompile Include="CSendHook.cpp" />
     <ClCompile Include="CServerInfo.cpp" />
     <ClCompile Include="CSoundSpam.cpp" />

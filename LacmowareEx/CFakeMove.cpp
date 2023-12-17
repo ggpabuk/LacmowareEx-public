@@ -12,8 +12,8 @@ CFakeMove::CFakeMove()
 	m_moveType = 0;
 	m_jitterEnabled = false;
 
-	CSendHook::addPacketModifier(PacketId::M_UPDATE, 
-		[this](char **data, int *len)
+	CSendHook::addPacketModifier(Network::M_UPDATE, 
+		[this](char *data, int len)
 		{
 			if (!this->m_bIsEnabled || !this->m_jitterEnabled) return;
 
@@ -21,7 +21,7 @@ CFakeMove::CFakeMove()
 			static std::mt19937 s_rng(s_rd());
 
 			std::uniform_int_distribution<unsigned int> dist(0, UINT_MAX);
-			*(unsigned int *)(*data + 3) = dist(s_rng);
+			*(unsigned int *)(data + 3) = dist(s_rng);
 		});
 }
 

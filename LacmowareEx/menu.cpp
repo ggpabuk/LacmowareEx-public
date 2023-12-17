@@ -44,7 +44,7 @@ namespace menu
         g_features.push_back(std::make_unique<CBypassPeanut>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFakeMove>());
-        //g_features.push_back(std::make_unique<CSoundSpam>());
+        g_features.push_back(std::make_unique<CSoundSpam>());
 
         g_features.push_back(std::make_unique<CPlayers>());
         g_features.push_back(std::make_unique<CBypassKeycodes>());
