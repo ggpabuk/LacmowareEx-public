@@ -76,9 +76,10 @@ CChat::CChat()
 					}
 					else if (!args[0].compare("pong") && args.size() >= 2 && stoi(args[1]) == CSendHook::m_lastPlayerId)
 					{
-						printf("%i ponged!", message.pid);
+						printf("%i ponged!\n", message.pid);
 					}
 
+					delete[] data;
 					return;
 				}
 		
