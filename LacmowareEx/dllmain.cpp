@@ -22,7 +22,7 @@ void fnInit()
 
     SDK::fnInit();
     freezeManager::fnInit();
-    menuRenderer::init();
+    menuRenderer::start();
 }
 
 void fnCreateConsole()

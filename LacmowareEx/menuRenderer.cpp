@@ -1,213 +1,310 @@
+// Pasted from:
+// https://github.com/3r4y/imgui-external-overlay/tree/main
+// (MIT Licensed)
+
+#include <iostream>
+#include <windows.h>
+#include <dwmapi.h>
+#include <d3d9.h>
+
+#include "Imgui/imgui.h"
+#include "Imgui/imgui_impl_dx9.h"
+#include "Imgui/imgui_impl_win32.h"
+
+#include "menu.h"
 #include "menuRenderer.h"
-#include "pch.h"
 
-// Forward declare message handler from imgui_impl_win32.cpp
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND g_hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+static HWND g_hwnd = NULL;
+static bool g_menuShowed = true;
+static int g_screenHeight = NULL;
+static int g_screenWidth = NULL;
+static int g_screenLeft = NULL;
+static int g_screenRight = NULL;
+static int g_screenTop = NULL;
+static int g_screenBottom = NULL;
 
-namespace menuRenderer
+namespace OverlayWindow
 {
-    // Data
-    static LPDIRECT3D9              g_pD3D = NULL;
-    static LPDIRECT3DDEVICE9        g_pd3dDevice = NULL;
-    static D3DPRESENT_PARAMETERS    g_d3dpp = {};
+	WNDCLASSEX WindowClass;
+	HWND Hwnd;
+	LPCWSTR Name;
+}
 
-    // Forward declarations of helper functions
-    bool CreateDeviceD3D(HWND g_hWnd);
-    void CleanupDeviceD3D();
-    void ResetDevice();
-    LRESULT WINAPI WndProc(HWND g_hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+namespace DirectX9Interface
+{
+	IDirect3D9Ex *Direct3D9 = NULL;
+	IDirect3DDevice9Ex *pDevice = NULL;
+	D3DPRESENT_PARAMETERS pParams = { NULL };
+	MARGINS Margin = { -1 };
+	MSG Message = { NULL };
+}
 
-    int init()
-    {
-        // Create application window
-        //ImGui_ImplWin32_EnableDpiAwareness();
-        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("lacmoware"), NULL };
-        ::RegisterClassEx(&wc);
-        
-        HWND hwnd = ::CreateWindow(
-            wc.lpszClassName,
-            _T("LacmowareEx: Ne4to pidor"),
-            WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
-            100,
-            100,
-            menu::iWidth,
-            menu::iHeight,
-            NULL,
-            NULL,
-            wc.hInstance,
-            NULL
-        );
+void InputHandler()
+{
+	for (int i = 0; i < 5; i++) ImGui::GetIO().MouseDown[i] = false;
+	int button = -1;
+	if (GetAsyncKeyState(VK_LBUTTON)) button = 0;
+	if (button != -1) ImGui::GetIO().MouseDown[button] = true;
+}
 
-        // Initialize Direct3D
-        if (!CreateDeviceD3D(hwnd))
-        {
-            CleanupDeviceD3D();
-            ::UnregisterClass(wc.lpszClassName, wc.hInstance);
-            return 1;
-        }
+void Render()
+{
+	if (GetAsyncKeyState(VK_INSERT) & 1)
+		g_menuShowed = !g_menuShowed;
 
-        // Show the window
-        ::ShowWindow(hwnd, SW_SHOWDEFAULT);
-        ::UpdateWindow(hwnd);
+	ImGui_ImplDX9_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::GetIO().MouseDrawCursor = g_menuShowed;
 
-        // Setup Dear ImGui context
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGuiIO &io = ImGui::GetIO(); (void)io;
-        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	if (g_menuShowed)
+	{
+		InputHandler();
+		menu::fnDrawMenu();
+	}
+	ImGui::EndFrame();
 
-        // Setup Dear ImGui style
-        ImGui::StyleColorsDark();
-        //ImGui::StyleColorsLight();
+	DirectX9Interface::pDevice->SetRenderState(D3DRS_ZENABLE, false);
+	DirectX9Interface::pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+	DirectX9Interface::pDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, false);
 
-        // Setup Platform/Renderer backends
-        ImGui_ImplWin32_Init(hwnd);
-        ImGui_ImplDX9_Init(g_pd3dDevice);
+	DirectX9Interface::pDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
+	if (DirectX9Interface::pDevice->BeginScene() >= 0)
+	{
+		ImGui::Render();
+		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+		DirectX9Interface::pDevice->EndScene();
+	}
 
-        // Load Fonts
-        // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-        // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-        // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
-        // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-        // - Read 'docs/FONTS.md' for more instructions and details.
-        // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-        //io.Fonts->AddFontDefault();
-        //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-        //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-        //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-        //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
-        //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-        //IM_ASSERT(font != NULL);
+	HRESULT result = DirectX9Interface::pDevice->Present(NULL, NULL, NULL, NULL);
+	if (result == D3DERR_DEVICELOST && DirectX9Interface::pDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+	{
+		ImGui_ImplDX9_InvalidateDeviceObjects();
+		DirectX9Interface::pDevice->Reset(&DirectX9Interface::pParams);
+		ImGui_ImplDX9_CreateDeviceObjects();
+	}
+}
 
-        // Our state
-        ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-        menu::fnInit(hwnd);
+void MainLoop()
+{
+	static RECT OldRect;
+	ZeroMemory(&DirectX9Interface::Message, sizeof(MSG));
 
-        // Main loop
-        bool done = false;
-        while (!done)
-        {
-            // Poll and handle messages (inputs, window resize, etc.)
-            // See the WndProc() function below for our to dispatch events to the Win32 backend.
-            MSG msg;
-            while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-            {
-                ::TranslateMessage(&msg);
-                ::DispatchMessage(&msg);
-                if (msg.message == WM_QUIT)
-                    done = true;
-            }
-            if (done)
-                break;
+	while (DirectX9Interface::Message.message != WM_QUIT)
+	{
+		if (PeekMessage(&DirectX9Interface::Message, OverlayWindow::Hwnd, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&DirectX9Interface::Message);
+			DispatchMessage(&DirectX9Interface::Message);
+		}
+		HWND ForegroundWindow = GetForegroundWindow();
+		if (ForegroundWindow == g_hwnd)
+		{
+			HWND TempProcessHwnd = GetWindow(ForegroundWindow, GW_HWNDPREV);
+			SetWindowPos(OverlayWindow::Hwnd, TempProcessHwnd, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+		}
 
-            // Start the Dear ImGui frame
-            ImGui_ImplDX9_NewFrame();
-            ImGui_ImplWin32_NewFrame();
-            ImGui::NewFrame();
+		RECT TempRect;
+		POINT TempPoint;
+		ZeroMemory(&TempRect, sizeof(RECT));
+		ZeroMemory(&TempPoint, sizeof(POINT));
 
-            menu::fnDrawMenu();
+		GetClientRect(g_hwnd, &TempRect);
+		ClientToScreen(g_hwnd, &TempPoint);
 
-            // Rendering
-            ImGui::EndFrame();
-            g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
-            g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-            g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
-            D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * clear_color.w * 255.0f), (int)(clear_color.y * clear_color.w * 255.0f), (int)(clear_color.z * clear_color.w * 255.0f), (int)(clear_color.w * 255.0f));
-            g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
-            if (g_pd3dDevice->BeginScene() >= 0)
-            {
-                ImGui::Render();
-                ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-                g_pd3dDevice->EndScene();
-            }
-            HRESULT result = g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+		TempRect.left = TempPoint.x;
+		TempRect.top = TempPoint.y;
+		ImGuiIO &io = ImGui::GetIO();
+		//io.ImeWindowHandle = _HWND;
 
-            // Handle loss of D3D9 device
-            if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
-                ResetDevice();
-        }
+		POINT TempPoint2;
+		GetCursorPos(&TempPoint2);
+		io.MousePos.x = TempPoint2.x - TempPoint.x;
+		io.MousePos.y = TempPoint2.y - TempPoint.y;
 
-        ImGui_ImplDX9_Shutdown();
-        ImGui_ImplWin32_Shutdown();
-        ImGui::DestroyContext();
+		if (GetAsyncKeyState(0x1))
+		{
+			io.MouseDown[0] = true;
+			io.MouseClicked[0] = true;
+			io.MouseClickedPos[0].x = io.MousePos.x;
+			io.MouseClickedPos[0].x = io.MousePos.y;
+		}
+		else
+		{
+			io.MouseDown[0] = false;
+		}
 
-        CleanupDeviceD3D();
-        ::DestroyWindow(hwnd);
-        ::UnregisterClass(wc.lpszClassName, wc.hInstance);
+		if (TempRect.left != OldRect.left || TempRect.right != OldRect.right || TempRect.top != OldRect.top || TempRect.bottom != OldRect.bottom)
+		{
+			OldRect = TempRect;
+			g_screenWidth = TempRect.right;
+			g_screenHeight = TempRect.bottom;
+			DirectX9Interface::pParams.BackBufferWidth = g_screenWidth;
+			DirectX9Interface::pParams.BackBufferHeight = g_screenHeight;
+			SetWindowPos(OverlayWindow::Hwnd, (HWND)0, TempPoint.x, TempPoint.y, g_screenWidth, g_screenHeight, SWP_NOREDRAW);
+			DirectX9Interface::pDevice->Reset(&DirectX9Interface::pParams);
+		}
+		Render();
+	}
+	ImGui_ImplDX9_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+	if (DirectX9Interface::pDevice != NULL)
+	{
+		DirectX9Interface::pDevice->EndScene();
+		DirectX9Interface::pDevice->Release();
+	}
+	if (DirectX9Interface::Direct3D9 != NULL)
+	{
+		DirectX9Interface::Direct3D9->Release();
+	}
+	DestroyWindow(OverlayWindow::Hwnd);
+	UnregisterClass(OverlayWindow::WindowClass.lpszClassName, OverlayWindow::WindowClass.hInstance);
+}
 
-        return 0;
-    }
+bool DirectXInit()
+{
+	if (FAILED(Direct3DCreate9Ex(D3D_SDK_VERSION, &DirectX9Interface::Direct3D9)))
+	{
+		return false;
+	}
 
-    // Helper functions
+	D3DPRESENT_PARAMETERS Params = { 0 };
+	Params.Windowed = TRUE;
+	Params.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	Params.hDeviceWindow = OverlayWindow::Hwnd;
+	Params.MultiSampleQuality = D3DMULTISAMPLE_NONE;
+	Params.BackBufferFormat = D3DFMT_A8R8G8B8;
+	Params.BackBufferWidth = g_screenWidth;
+	Params.BackBufferHeight = g_screenHeight;
+	Params.PresentationInterval = D3DPRESENT_INTERVAL_ONE;
+	Params.EnableAutoDepthStencil = TRUE;
+	Params.AutoDepthStencilFormat = D3DFMT_D16;
+	Params.PresentationInterval = D3DPRESENT_INTERVAL_ONE;
+	Params.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 
-    bool CreateDeviceD3D(HWND g_hWnd)
-    {
-        if ((g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == NULL)
-            return false;
+	if (FAILED(DirectX9Interface::Direct3D9->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, OverlayWindow::Hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &Params, 0, &DirectX9Interface::pDevice)))
+	{
+		DirectX9Interface::Direct3D9->Release();
+		return false;
+	}
 
-        // Create the D3DDevice
-        ZeroMemory(&g_d3dpp, sizeof(g_d3dpp));
-        g_d3dpp.Windowed = TRUE;
-        g_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-        g_d3dpp.BackBufferFormat = D3DFMT_UNKNOWN; // Need to use an explicit format with alpha if needing per-pixel alpha composition.
-        g_d3dpp.EnableAutoDepthStencil = TRUE;
-        g_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-        g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE;           // Present with vsync
-        //g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;   // Present without vsync, maximum unthrottled framerate
-        if (g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice) < 0)
-            return false;
+	ImGui::CreateContext();
+	ImGuiIO &io = ImGui::GetIO();
+	//ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantTextInput || ImGui::GetIO().WantCaptureKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-        return true;
-    }
+	ImGui_ImplWin32_Init(OverlayWindow::Hwnd);
+	ImGui_ImplDX9_Init(DirectX9Interface::pDevice);
+	DirectX9Interface::Direct3D9->Release();
+	return true;
+}
 
-    void CleanupDeviceD3D()
-    {
-        if (g_pd3dDevice) { g_pd3dDevice->Release(); g_pd3dDevice = NULL; }
-        if (g_pD3D) { g_pD3D->Release(); g_pD3D = NULL; }
-    }
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK WinProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
+{
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, Message, wParam, lParam))
+		return true;
 
-    void ResetDevice()
-    {
-        ImGui_ImplDX9_InvalidateDeviceObjects();
-        HRESULT hr = g_pd3dDevice->Reset(&g_d3dpp);
-        if (hr == D3DERR_INVALIDCALL)
-            IM_ASSERT(0);
-        ImGui_ImplDX9_CreateDeviceObjects();
-    }
+	switch (Message)
+	{
+		case WM_DESTROY:
+		if (DirectX9Interface::pDevice != NULL)
+		{
+			DirectX9Interface::pDevice->EndScene();
+			DirectX9Interface::pDevice->Release();
+		}
+		if (DirectX9Interface::Direct3D9 != NULL)
+		{
+			DirectX9Interface::Direct3D9->Release();
+		}
+		PostQuitMessage(0);
+		std::exit(0);
+		break;
+		case WM_SIZE:
+		if (DirectX9Interface::pDevice != NULL && wParam != SIZE_MINIMIZED)
+		{
+			ImGui_ImplDX9_InvalidateDeviceObjects();
+			DirectX9Interface::pParams.BackBufferWidth = LOWORD(lParam);
+			DirectX9Interface::pParams.BackBufferHeight = HIWORD(lParam);
+			HRESULT hr = DirectX9Interface::pDevice->Reset(&DirectX9Interface::pParams);
+			if (hr == D3DERR_INVALIDCALL)
+				IM_ASSERT(0);
+			ImGui_ImplDX9_CreateDeviceObjects();
+		}
+		break;
+		default:
+		return DefWindowProc(hWnd, Message, wParam, lParam);
+		break;
+	}
+	return 0;
+}
 
-    // Forward declare message handler from imgui_impl_win32.cpp
-    //extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+void SetupWindow()
+{
+	OverlayWindow::WindowClass = {
+		sizeof(WNDCLASSEX), 0, WinProc, 0, 0, nullptr, LoadIcon(nullptr, IDI_APPLICATION), LoadCursor(nullptr, IDC_ARROW), nullptr, nullptr, OverlayWindow::Name, LoadIcon(nullptr, IDI_APPLICATION)
+	};
 
-    // Win32 message handler
-    // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-    // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
-    // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
-    // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-    LRESULT WINAPI WndProc(HWND g_hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-    {
-        if (ImGui_ImplWin32_WndProcHandler(g_hWnd, msg, wParam, lParam))
-            return true;
+	RegisterClassEx(&OverlayWindow::WindowClass);
+	if (g_hwnd)
+	{
+		static RECT TempRect = { NULL };
+		static POINT TempPoint;
+		GetClientRect(g_hwnd, &TempRect);
+		ClientToScreen(g_hwnd, &TempPoint);
+		TempRect.left = TempPoint.x;
+		TempRect.top = TempPoint.y;
+		g_screenWidth = TempRect.right;
+		g_screenHeight = TempRect.bottom;
+	}
 
-        switch (msg)
-        {
-        case WM_SIZE:
-            if (g_pd3dDevice != NULL && wParam != SIZE_MINIMIZED)
-            {
-                g_d3dpp.BackBufferWidth = LOWORD(lParam);
-                g_d3dpp.BackBufferHeight = HIWORD(lParam);
-                ResetDevice();
-            }
-            return 0;
-        case WM_SYSCOMMAND:
-            if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
-                return 0;
-            break;
-        case WM_DESTROY:
-            ::PostQuitMessage(0);
-            return 0;
-        }
-        return ::DefWindowProc(g_hWnd, msg, wParam, lParam);
-    }
+	OverlayWindow::Hwnd = CreateWindowEx(NULL, OverlayWindow::Name, OverlayWindow::Name, WS_POPUP | WS_VISIBLE, g_screenLeft, g_screenTop, g_screenWidth, g_screenHeight, NULL, NULL, 0, NULL);
+	DwmExtendFrameIntoClientArea(OverlayWindow::Hwnd, &DirectX9Interface::Margin);
+	SetWindowLong(OverlayWindow::Hwnd, GWL_EXSTYLE, WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+	ShowWindow(OverlayWindow::Hwnd, SW_SHOW);
+	UpdateWindow(OverlayWindow::Hwnd);
+}
+
+void menuRenderer::start()
+{
+	assert(!g_hwnd);
+	while (!g_hwnd)
+	{
+		g_hwnd = FindWindowW(L"Blitz Runtime Class", L"SCP - Containment Breach Multiplayer");
+		Sleep(1);
+	}
+
+	bool windowFocused = false;
+	while (!windowFocused)
+	{
+		HWND foregroundHwnd = GetForegroundWindow();
+
+		if (g_hwnd == foregroundHwnd)
+		{
+			g_hwnd = foregroundHwnd;
+
+			RECT TempRect;
+			GetWindowRect(g_hwnd, &TempRect);
+			g_screenWidth = TempRect.right - TempRect.left;
+			g_screenHeight = TempRect.bottom - TempRect.top;
+			g_screenLeft = TempRect.left;
+			g_screenRight = TempRect.right;
+			g_screenTop = TempRect.top;
+			g_screenBottom = TempRect.bottom;
+
+			windowFocused = true;
+		}
+	}
+	
+	OverlayWindow::Name = L"Blitz Runtime Class";
+	SetupWindow();
+	DirectXInit();
+
+	menu::fnInit();
+	while (1)
+	{
+		MainLoop();
+	}
 }

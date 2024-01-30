@@ -9,13 +9,12 @@ git clone https://github.com/ggpabuk/LacmowareEx-public.git
 ```
 
 # Compiling
-1. [Install clang](https://docs.microsoft.com/en-us/cpp/build/clang-support-msbuild)
-1. Open solution in **Visual Studio 2022** (or above)
+1. [Install clang for VS](https://docs.microsoft.com/en-us/cpp/build/clang-support-msbuild)
 1. Select **Release x86** configuration
-1. Build it (`F7`)
+1. Build solution
 
 # Credits
 + [@ggpabuk](https://github.com/ggpabuk/)
 + [@TheLifeWorm](https://github.com/TheLifeWorm/)
-+ [JustasMasiulis/xorstr](https://github.com/JustasMasiulis/xorstr)
 + [ocornut/imgui](https://github.com/ocornut/imgui)
++ [3r4y/imgui-external-overlay](https://github.com/3r4y/imgui-external-overlay)

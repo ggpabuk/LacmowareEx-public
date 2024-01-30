@@ -10,24 +10,15 @@ typedef std::unique_ptr<CFeature> featureUnique_t;
 namespace menu
 {
     static std::vector<featureUnique_t> g_features{};
-    static HWND g_hWnd;
     static ImFont *g_pFont;
 
     std::mutex hotkeysMutex;
 
-    void fnInit(HWND hWnd)
+    void fnInit()
     {
         ImGui::GetIO().IniFilename = NULL;
 
         fnSetTheme();
-
-        g_hWnd = hWnd;
-        
-        LONG wndStyle = GetWindowLong(g_hWnd, GWL_STYLE);
-        wndStyle &= ~WS_MINIMIZEBOX;
-        wndStyle &= ~WS_MAXIMIZEBOX;
-        wndStyle &= ~WS_SYSMENU;
-        SetWindowLong(g_hWnd, GWL_STYLE, wndStyle);
 
         CHotkey CONoneHotkey(0, false);
         g_features.push_back(std::make_unique<CNoclip>(CHotkey('F', true)));
@@ -45,7 +36,7 @@ namespace menu
         g_features.push_back(std::make_unique<CBypassPeanut>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFovChanger>(CONoneHotkey));
         g_features.push_back(std::make_unique<CFakeMove>());
-        g_features.push_back(std::make_unique<CChat>());
+        //g_features.push_back(std::make_unique<CChat>());
 
         g_features.push_back(std::make_unique<CPlayers>());
         g_features.push_back(std::make_unique<CBypassKeycodes>());
@@ -148,29 +139,13 @@ namespace menu
         style.GrabRounding = 3;
         style.LogSliderDeadzone = 4;
         style.TabRounding = 4;
+
+        style.WindowMenuButtonPosition = ImGuiDir_None;
     }
 
     void fnDrawMenu()
     {
-        static bool s_bMenuActive = true;
-       
-        if (GetAsyncKeyState(VK_INSERT) & 1)
-        {
-            SetWindowPos(g_hWnd, HWND_TOPMOST, NULL, NULL, NULL, NULL,
-                SWP_NOMOVE | SWP_NOSIZE | (s_bMenuActive ? SWP_HIDEWINDOW : SWP_SHOWWINDOW));
-
-            s_bMenuActive ^= 1;
-        }
-
-        if (!s_bMenuActive)
-        {
-            return;
-        }
-
-        ImGui::SetNextWindowPos(ImVec2(0, 0), 0);
-        ImGui::SetNextWindowSize(ImVec2(iWidth, iHeight));
-
-        ImGui::Begin("LacmowareEx", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+        ImGui::Begin("LacmowareEx", 0);
         unsigned int uElementId = 0;
 
         if (g_pFont)
@@ -196,35 +171,36 @@ namespace menu
             s_iCurrentTab = Tab::Combat;
         }
         
-        ImGui::SameLine();
+        ImGui::SameLine(.0f, .3f);
         if (ImGui::Button("Visuals", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Visuals;
         }
 
-        ImGui::SameLine();
+        ImGui::SameLine(.0f, .3f);
         if (ImGui::Button("Movement", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Movement;
         }
 
-        ImGui::SameLine();
+        ImGui::SameLine(.0f, .3f);
         if (ImGui::Button("Fun", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Fun;
         }
 
-        ImGui::SameLine();
+        ImGui::SameLine(.0f, .3f);
         if (ImGui::Button("Players", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Players;
         }
 
-        ImGui::SameLine();
+        /*
+        ImGui::SameLine(.0f, .3f);
         if (ImGui::Button("Chat", tabsButtonSize))
         {
             s_iCurrentTab = Tab::Chat;
-        }
+        }*/
         
         bool bFirst = true;
         for (const auto &feature : g_features)
@@ -243,8 +219,8 @@ namespace menu
             feature->fnDraw(uElementId);
         }
 
-        ImGui::NewLine(); // slider fix
-        ImGui::NewLine(); // dont judge me please
+        //ImGui::NewLine(); // slider fix
+        //ImGui::NewLine(); // dont judge me please
 
         ImGui::PopFont();
         ImGui::End();

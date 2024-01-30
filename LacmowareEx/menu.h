@@ -32,7 +32,7 @@ namespace menu
 
     extern std::mutex hotkeysMutex;
 
-    void fnInit(HWND hWnd);
+    void fnInit();
     void fnSetTheme();
     void fnDrawMenu();
     void fnCatchHotkeys();
